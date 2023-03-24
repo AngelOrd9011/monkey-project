@@ -11,7 +11,7 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=password
       - MONGO_INITDB_DATABASE=monkey
     ports:
-      - '27017:27017'
+      - '27031:27017'
     command: mongod
 
   redis:

@@ -10,7 +10,7 @@ ENV REACT_APP_GRAPHQL_URI=$GRAPHQL_URI
 
 # Copiar package.json y package-lock.json e instalar dependencias
 WORKDIR /app
-COPY package*.json yarn.lock ./
+COPY package.json yarn.lock ./
 RUN yarn
 # Copiar el resto del código y construir proyecto
 COPY . .
