@@ -1,0 +1,7 @@
+{
+	"port": 4000,
+	"nodeEnv": "development",
+	"origin": "http://localhost:3000",
+	"jwtAccessTokenExpiresIn": 60,
+	"jwtRefreshTokenExpiresIn": 60
+}

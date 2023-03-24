@@ -1,0 +1,200 @@
+.app-logo {
+	height: 5vmin;
+	pointer-events: none;
+}
+
+h1 {
+	color: #ef6c00 !important;
+	font-size: 3.5rem;
+	font-weight: 400;
+	margin: 1rem 0 !important;
+	letter-spacing: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.app-logo {
+		animation: app-logo-float infinite 3s ease-in-out;
+	}
+}
+
+.app-header {
+	min-height: 2rem;
+	width: 100%;
+	align-content: center;
+	font-size: calc(10px + 2vmin);
+	background-color: #a7ffeb !important;
+	box-shadow: 0 1px #ef6c00;
+	position: fixed !important;
+	z-index: 1 !important;
+}
+.menu-header {
+	background-color: #a7ffeb !important;
+	padding: 0 10rem !important;
+	border: 0 !important;
+}
+
+.p-menuitem-text,
+.p-menuitem-icon,
+.p-menubar-button {
+	color: #ef6c00 !important;
+	font-weight: bold !important;
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-submenu-icon {
+	color: #ef6c00 !important;
+	font-weight: bold !important;
+}
+
+.p-submenu-list,
+.p-menubar-root-list {
+	background-color: #a7ffeb !important;
+}
+
+.image-cover {
+	background: transparent url('./assets/images/banner1.jpg');
+	background-attachment: fixed !important;
+	background-position: bottom right !important;
+	background-repeat: no-repeat !important;
+	background-size: cover !important;
+	box-shadow: 0 8px 17px 2px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2) !important;
+	height: 55vh;
+}
+
+.main-content {
+	min-height: 50vh;
+	width: 100% !important;
+	padding: 1rem 0;
+}
+
+.page-content {
+	padding: 2rem 0 !important;
+}
+
+.grid {
+	margin: 0 !important;
+}
+
+.loading,
+.error-message {
+	margin-top: 5rem;
+	color: rgb(112, 76, 182);
+}
+
+.app-footer {
+	background-color: #a7ffeb;
+	height: 2.5rem !important;
+	margin: 0 !important;
+	border-top: 1px solid #ef6c00;
+	color: #ef6c00;
+	z-index: 1 !important;
+	padding: 0.5rem;
+}
+
+.sticky-footer {
+	position: fixed;
+	bottom: 0 !important;
+	width: 100%;
+}
+
+.copy-rights {
+	font-size: small;
+	float: right;
+}
+.contact {
+	margin-left: 20px;
+}
+
+@media (max-width: 1000px) {
+	.menu-header {
+		padding: 0 2rem !important;
+	}
+	.image-cover {
+		background-attachment: unset !important;
+		height: 30vh;
+	}
+	.p-dialog {
+		width: 90% !important;
+	}
+}
+
+@keyframes app-logo-float {
+	0% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(6px);
+	}
+	100% {
+		transform: translateY(0px);
+	}
+}
+
+.p-card {
+	background-color: #ef6c00 !important;
+	color: #fff !important;
+	position: relative;
+	width: 90% !important;
+}
+.p-card-title {
+	position: absolute;
+	background: #000;
+	opacity: 0.8;
+	padding: 4px 15px !important;
+	left: 0;
+	top: 15rem;
+	border-radius: 0 20px 20px 0;
+	font-weight: 300 !important;
+}
+
+.p-card-subtitle {
+	position: absolute;
+	color: #9c27b0 !important;
+	font-size: x-large;
+	font-weight: 600 !important;
+	margin-top: 0.5rem !important;
+	width: 90% !important;
+}
+
+.p-card-content {
+	margin-top: 2rem !important;
+}
+
+.p-card-body {
+	height: 12rem;
+}
+
+.p-card-header img {
+	width: 100%;
+	height: 100%;
+}
+
+.p-card-header {
+	background-size: cover;
+	height: 300px;
+	background-color: rgb(112, 76, 182);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.not-image-found {
+	width: 30% !important;
+	height: 6rem !important;
+}
+
+.product-card-btn {
+	float: right !important;
+	background-color: #9c27b0 !important;
+}
+
+.p-dialog-content,
+.p-dialog-header,
+.p-dialog-header-close {
+	background-color: #704cb6 !important;
+	color: #fff !important;
+}
+
+.p-dialog {
+	width: 50%;
+}
