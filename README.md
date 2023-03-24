@@ -9,9 +9,9 @@
   Se puede levantar el frontend en ambiente de desarrollo con Node 16 y se sugiere tener instalado yarn para la gestión de los node_modules, pues Docker utiliza el archivo yarn.lock, para la construcción de la aplicación en el contenedor.
 
   - Comandos recomendados:
-    cd frontend
-    yarn
-    yarn start
+    - cd frontend
+    - yarn
+    - yarn start
 
 - Backend: Node, Express, ApolloServer, Mongoose, RedisClient, JWT.
 
@@ -20,9 +20,9 @@
   Se puede levantar el backend en ambiente de desarrollo con Node 16 y se sugiere tener instalado yarn para la gestión de los node_modules, pues Docker utiliza el archivo yarn.lock, para la construcción de la aplicación en el contenedor.
 
   - Comandos recomendados:
-    cd backend
-    yarn
-    yarn run dev
+    - cd backend
+    - yarn
+    - yarn run dev
 
 - Database & Storage: MongoDB, Redis, Minio.
 
