@@ -34,10 +34,13 @@ const useAuthenticate = () => {
 	};
 
 	const logout = () => {
-		logOut().then(({ data }) => console.log(data));
-		setToken(null);
-		window.sessionStorage.clear();
-		window.location.reload();
+		logOut()
+			.then(() => {
+				setToken(null);
+				window.sessionStorage.clear();
+				window.location.reload();
+			})
+			.catch((e) => console.log(e));
 	};
 
 	return {

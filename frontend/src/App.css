@@ -1,6 +1,7 @@
 .app-logo {
 	height: 5vmin;
 	pointer-events: none;
+	margin: 0 2rem;
 }
 
 h1 {
@@ -193,6 +194,7 @@ h1 {
 .p-dialog-header-close {
 	background-color: #704cb6 !important;
 	color: #fff !important;
+	border: solid 1px #a7ffeb !important;
 }
 
 .p-dialog {
@@ -230,7 +232,7 @@ h1 {
 .orange-btn {
 	margin: auto !important;
 	background-color: #ef6c00 !important;
-	color: #704cb6 !important;
+	color: #9c27b0 !important;
 }
 
 .p-inputgroup-addon {
@@ -244,4 +246,15 @@ h1 {
 	border: solid 1px #ef6c00 !important;
 	font-weight: 500 !important;
 	letter-spacing: 1px !important;
+}
+
+.small-btn {
+	height: 2rem !important;
+	max-width: 10rem;
+	margin-bottom: 0.5rem !important;
+}
+
+.link-btn {
+	padding: 0 !important;
+	color: #fff !important;
 }

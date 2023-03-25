@@ -1,7 +1,22 @@
 import logo from '../../assets/images/logo-orange.png';
 import { Menubar } from 'primereact/menubar';
+import useToast from '../../hooks/useToast';
+import { LoginDialog } from '../login/LoginDialog';
+import { useState } from 'react';
+import { Toast } from 'primereact/toast';
+import useAuthenticate from '../../hooks/useAuthenticate';
+import useProfile from '../../hooks/useProfile';
 
 const Header = ({ page, setPage }) => {
+	const { toast, showToast } = useToast();
+	const [show, setShow] = useState(false);
+	const { authenticated, logout } = useAuthenticate();
+	const { profile } = useProfile();
+
+	const onHide = () => {
+		setShow(false);
+	};
+
 	const items = [
 		{
 			label: 'Inicio',
@@ -50,14 +65,31 @@ const Header = ({ page, setPage }) => {
 		},
 	];
 
-	const end = <img src={logo} className="app-logo" alt="logo" />;
+	const menu = () => {
+		let menu = [...items];
+		if (authenticated)
+			menu.push({
+				label: profile.name,
+				icon: 'pi pi-user',
+				items: [{ label: 'Cerrar sesión', icon: 'pi pi-sign-out', command: () => logout() }],
+			});
+		else menu.push({ label: 'Iniciar sesión', icon: 'pi pi-sign-in', command: () => setShow(true) });
+		return menu;
+	};
+
+	const img = <img src={logo} className="app-logo" alt="logo" />;
+
 	return (
-		<header>
-			<div className="app-header">
-				<Menubar className="menu-header" model={items} end={end} />
-			</div>
-			{(page === 'home' || page === 'contact') && <div className="image-cover"></div>}
-		</header>
+		<>
+			<Toast ref={toast} />
+			<header>
+				<div className="app-header">
+					<Menubar className="menu-header" model={menu()} end={img} />
+				</div>
+				{(page === 'home' || page === 'contact') && <div className="image-cover"></div>}
+			</header>
+			<LoginDialog show={show} onHide={onHide} showToast={showToast} />
+		</>
 	);
 };
 

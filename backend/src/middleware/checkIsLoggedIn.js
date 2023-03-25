@@ -6,8 +6,6 @@ const checkIsLoggedIn = async (req, getAuthUser) => {
 		// Check if user is logged in
 		const authUser = await getAuthUser(req);
 
-		console.log(authUser);
-
 		if (!authUser) {
 			throw new AuthenticationError('You are not logged in');
 		}

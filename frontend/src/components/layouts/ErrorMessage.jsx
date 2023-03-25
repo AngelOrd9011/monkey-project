@@ -1,40 +1,24 @@
 export const ErrorMessage = (props) => {
-	if (props.workingOnIt) {
-		return (
-			<>
-				<center>
-					<div className="error-message">
-						<i className="pi pi-exclamation-circle" style={{ fontSize: '4em' }}></i>
-						<h3>Esta página esta en construcción</h3>
-					</div>
-				</center>
-			</>
-		);
-	}
-	if (props.notFound) {
-		return (
-			<>
-				<center>
-					<div className="error-message">
-						<i className="pi pi-exclamation-circle" style={{ fontSize: '4em' }}></i>
-						<h3>404 PAGE NOT FOUND</h3>
-					</div>
-				</center>
-			</>
-		);
-	}
 	return (
 		<center>
-			<>
-				<div className="error-message">
-					<i className="pi pi-exclamation-circle" style={{ fontSize: '4em' }}></i>
+			<div className="error-message">
+				<i className="pi pi-exclamation-circle" style={{ fontSize: '4em' }}></i>
+				{props.notFound && <h3>404 PAGE NOT FOUND</h3>}
+				{props.accessDenied && (
 					<h3>
-						¡Por el momento no es posible obtener algunos datos,
+						¡Acceso denegado!
 						<br />
-						por favor intenta más tarde!
+						<br />
+						Si piensas que es un error y que tú deberías ver esta información,
+						<br />
+						comunícate con el administrador principal de la página
+						<br />
+						<a href="/">Volver a la tienda</a>
 					</h3>
-				</div>
-			</>
+				)}
+				{!props.notFound && !props.accessDenied && <h3>¡Por el momento no es posible obtener la información, por favor intenta más tarde!</h3>}
+				{props.message && <h1>{props.message}</h1>}
+			</div>
 		</center>
 	);
 };

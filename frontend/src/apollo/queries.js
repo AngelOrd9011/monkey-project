@@ -2,6 +2,20 @@ import { gql } from '@apollo/client';
 
 /////////////////Usuario////////////////////
 
+export const QUERY_USER_PROFILE = gql`
+	{
+		getMe {
+			status
+			user {
+				name
+				email
+				photo
+				role
+			}
+		}
+	}
+`;
+
 export const QUERY_LOGOUT = gql`
 	{
 		logoutUser

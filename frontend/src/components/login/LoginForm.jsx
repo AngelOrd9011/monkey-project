@@ -3,7 +3,7 @@ import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import useAuthenticate from '../../hooks/useAuthenticate';
 
-const LoginForm = ({ showToast }) => {
+const LoginForm = ({ showToast, title }) => {
 	const [email, setEmail] = useState(null);
 	const [password, setPassword] = useState(null);
 	const { login } = useAuthenticate();
@@ -30,7 +30,7 @@ const LoginForm = ({ showToast }) => {
 				<span className="p-inputgroup-addon">
 					<i className="pi pi-lock"></i>
 				</span>
-				<InputText placeholder="Contraseña" onChange={(e) => setPassword(e.target.value)} />
+				<InputText placeholder="Contraseña" onChange={(e) => setPassword(e.target.value)} type="password" />
 			</div>
 			<div className="login-form-center">
 				<Button label="Enviar" icon="pi pi-send" onClick={sendLoginData} />
