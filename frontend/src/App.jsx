@@ -4,25 +4,27 @@ import './App.css';
 import Shop from './pages/Shop';
 import Admin from './pages/Admin';
 import { ErrorMessage } from './components/layouts/ErrorMessage';
-
-const authenticated = false;
-
-const router = createBrowserRouter([
-	{
-		path: '*',
-		element: <ErrorMessage notFound />,
-	},
-	{
-		path: '/',
-		element: <Shop />,
-	},
-	{
-		path: 'admin-console',
-		element: authenticated ? <Admin /> : <h1>No Login</h1>,
-	},
-]);
+import Login from './components/login/Login';
+import useAuthenticate from './hooks/useAuthenticate';
 
 const App = () => {
+	const { authenticated } = useAuthenticate();
+
+	const router = createBrowserRouter([
+		{
+			path: '*',
+			element: <ErrorMessage notFound />,
+		},
+		{
+			path: '/',
+			element: <Shop />,
+		},
+		{
+			path: 'admin-console',
+			element: authenticated ? <Admin /> : <Login />,
+		},
+	]);
+
 	return <RouterProvider router={router} />;
 };
 

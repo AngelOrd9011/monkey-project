@@ -75,7 +75,7 @@ const login = async (parent, { input: { email, password } }, { req, res }) => {
 		const user = await User.findOne({ email }).select('+password +verified');
 
 		if (!user || !(await user.comparePasswords(password, user.password))) {
-			throw new AuthenticationError('Invalid email or password');
+			throw new AuthenticationError('Correo y/o contraseña inválidos');
 		}
 
 		user.password = undefined;
