@@ -1,13 +1,14 @@
 import { useMemo } from 'react';
 import useSessionStorage from './useSessionStorage';
 import { useMutation, useLazyQuery } from '@apollo/client';
-import { MUTATION_LOGIN } from '../apollo/mutations';
+import { MUTATION_LOGIN, MUTATION_SINGUP } from '../apollo/mutations';
 import { QUERY_LOGOUT } from '../apollo/queries';
 
 const useAuthenticate = () => {
 	const [token, setToken] = useSessionStorage('token', '');
 	const [auth] = useMutation(MUTATION_LOGIN);
-	const [logOut] = useLazyQuery(QUERY_LOGOUT, {
+	const [sing] = useMutation(MUTATION_SINGUP);
+	const [out] = useLazyQuery(QUERY_LOGOUT, {
 		context: {
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -34,7 +35,7 @@ const useAuthenticate = () => {
 	};
 
 	const logout = () => {
-		logOut()
+		out()
 			.then(() => {
 				setToken(null);
 				window.sessionStorage.clear();
@@ -43,10 +44,24 @@ const useAuthenticate = () => {
 			.catch((e) => console.log(e));
 	};
 
+	const singUp = (name, email, password, passwordConfirm, showToast) => {
+		sing({ variables: { input: { name, email, password, passwordConfirm } } })
+			.then(({ data }) => {
+				if (data.signupUser.status === 'success') {
+					login(email, password, showToast);
+				}
+			})
+			.catch((e) => {
+				let error = JSON.parse(JSON.stringify(e));
+				showToast('error', 'Oops!', error.message);
+			});
+	};
+
 	return {
 		authenticated,
 		login,
 		logout,
+		singUp,
 	};
 };
 

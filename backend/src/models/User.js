@@ -6,29 +6,29 @@ const userSchema = new Schema(
 	{
 		name: {
 			type: String,
-			required: true,
+			required: [true, 'El nombre de usuario es requerido'],
 		},
 		email: {
 			type: String,
-			required: true,
+			required: [true, 'El correo electrónico es requerido'],
 			unique: true,
-			validate: [validator.isEmail, 'Please provide a valid email'],
+			validate: [validator.isEmail, 'La dirección de correo electrónico es invalida'],
 			lowercase: true,
 		},
 		password: {
 			type: String,
-			required: true,
-			minlength: [8, 'Password must be more than 8 characters'],
+			required: [true, 'La contraseña es requerida'],
+			minlength: [8, 'La contraseña debe tener al menos 8 caracteres'],
 			select: false,
 		},
 		passwordConfirm: {
 			type: String,
-			required: [true, 'Please confirm your password'],
+			required: [true, 'Por favor confirma tu contraseña'],
 			validate: {
 				validator: function (val) {
 					return val === this.password;
 				},
-				message: 'Passwords do not match',
+				message: 'La confirmación de contraseña no coincide',
 			},
 		},
 		photo: {

@@ -44,7 +44,7 @@ const signup = async (parent, { input: { name, email, password, passwordConfirm 
 		};
 	} catch (error) {
 		if (error.code === 11000) {
-			throw new ForbiddenError('User already exist');
+			throw new ForbiddenError('El usuario ya existe');
 		}
 		errorHandler(error);
 	}
