@@ -1,4 +1,4 @@
-const { productsController } = require('../controllers/products.controller');
+import productsController from '../controllers/products.controller.js';
 
 const productsResolvers = {
 	Query: {
@@ -14,6 +14,4 @@ const productsResolvers = {
 	},
 };
 
-module.exports = {
-	productsResolvers,
-};
+export default productsResolvers;

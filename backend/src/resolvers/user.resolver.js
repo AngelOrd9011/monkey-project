@@ -1,5 +1,5 @@
-const { authController } = require('../controllers/auth.controller');
-const { userController } = require('../controllers/user.controller');
+import authController from '../controllers/auth.controller.js';
+import userController from '../controllers/user.controller.js';
 
 const usersResolvers = {
 	Query: {
@@ -13,9 +13,9 @@ const usersResolvers = {
 		// Auth
 		signupUser: authController.signup,
 		loginUser: authController.login,
+		//Users
+		updateUser: userController.updateUser,
 	},
 };
 
-module.exports = {
-	usersResolvers,
-};
+export default usersResolvers;

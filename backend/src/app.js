@@ -1,16 +1,24 @@
-require('dotenv').config();
-const express = require('express');
-const { ApolloServer } = require('apollo-server-express');
-const { resolvers } = require('./resolvers/resolvers');
-const { typeDefs } = require('./schema/schema');
-const { connectDB } = require('./utils/connectDB');
-const { authUser } = require('./middleware/authUser');
-const { validateEnv } = require('./utils/validateEnv');
+import dotenv from 'dotenv';
+import express from 'express';
+import { ApolloServer } from 'apollo-server-express';
+import resolvers from './resolvers/resolvers.js';
+import typeDefs from './schema/schema.js';
+import connectDB from './utils/connectDB.js';
+import authUser from './middleware/authUser.js';
+import validateEnv from './utils/validateEnv.js';
+import cors from 'cors';
 
+dotenv.config();
 validateEnv();
+
+const corsOptions = {
+	origin: ['http://localhost:3000', 'http://localhost'],
+};
 
 const app = express();
 connectDB();
+
+app.use(cors(corsOptions));
 
 app.get('/', (_req, res) => {
 	res.send('GraphQL API is alive!');

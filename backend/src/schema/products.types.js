@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server-express');
+import { gql } from 'apollo-server-express';
 
 const productsTypeDefs = gql`
 	# Types
@@ -60,6 +60,4 @@ const productsTypeDefs = gql`
 	}
 `;
 
-module.exports = {
-	productsTypeDefs,
-};
+export default productsTypeDefs;

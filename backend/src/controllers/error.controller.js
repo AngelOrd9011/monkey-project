@@ -1,4 +1,4 @@
-const { ApolloError } = require('apollo-server-core');
+import { ApolloError } from 'apollo-server-core';
 
 const handleCastError = (error) => {
 	const message = `${error.path}: ${error.value}`;
@@ -13,8 +13,8 @@ const handleValidationError = (error) => {
 const errorHandler = (err) => {
 	if (err.name === 'CastError') handleCastError(err);
 	if (err.name === 'ValidationError') handleValidationError(err);
-	if (err.name === 'InvalidRole') throw new ApolloError('Invalid role', 'GRAPHQL_VALIDATION_FAILED');
+	if (err.name === 'InvalidRole') throw new ApolloError('El usuario no esta autorizado para realizar esta acción', 'GRAPHQL_VALIDATION_FAILED');
 	throw err;
 };
 
-module.exports = { errorHandler };
+export default errorHandler;

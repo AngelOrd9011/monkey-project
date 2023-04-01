@@ -1,4 +1,4 @@
-const { cleanEnv, port, str } = require('envalid');
+import { cleanEnv, port, str } from 'envalid';
 
 const validateEnv = () => {
 	cleanEnv(process.env, {
@@ -13,4 +13,4 @@ const validateEnv = () => {
 	});
 };
 
-module.exports = { validateEnv };
+export default validateEnv;

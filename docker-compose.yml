@@ -53,22 +53,6 @@ services:
       exec sleep inf;
       "
 
-  companion:
-    image: transloadit/companion:latest
-    container_name: uppy
-    environment:
-      COMPANION_AWS_ENDPOINT: http://minio:9000
-      COMPANION_AWS_BUCKET: monkey
-      COMPANION_AWS_KEY: admin
-      COMPANION_AWS_SECRET: password
-      COMPANION_PROTOCOL: http
-      COMPANION_SECRET: secret
-      COMPANION_DOMAIN: localhost
-      COMPANION_DATADIR: /tmp
-      COMPANION_CLIENT_ORIGINS: localhost:80, localhost:3000
-    ports:
-      - 5002:5000
-
   backend:
     build: backend/
     container_name: backend

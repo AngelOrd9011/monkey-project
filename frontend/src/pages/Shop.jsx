@@ -9,17 +9,18 @@ import { Toast } from 'primereact/toast';
 import useToast from '../hooks/useToast';
 import useProfile from '../hooks/useProfile';
 import { Loading } from '../components/layouts/Loading';
+import Profile from './Profile';
 
 const Shop = () => {
 	const [routeStored, setRouteStored] = useLocalStorage('MonkeyPage', 'home');
-	const { toast } = useToast();
+	const { toast, showToast } = useToast();
 	const { loading } = useProfile();
 
 	if (loading) return <Loading />;
 
 	return (
 		<>
-			<Header page={routeStored} setPage={setRouteStored} />
+			<Header page={routeStored} setPage={setRouteStored} showToast={showToast} />
 			<Toast ref={toast} />
 			<main className="main-content">
 				<div className="grid">
@@ -28,6 +29,7 @@ const Shop = () => {
 						{routeStored === 'contact' && <Contact />}
 						{(routeStored === 'all' || routeStored === 'male' || routeStored === 'female') && <Catalog catalogType={routeStored} />}
 						{routeStored === 'cart' && <Cart />}
+						{routeStored === 'profile' && <Profile setPage={setRouteStored} />}
 					</div>
 				</div>
 			</main>

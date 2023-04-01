@@ -1,9 +1,23 @@
-const { gql } = require('apollo-server-express');
-const { productsTypeDefs } = require('./products.types');
-const { userTypeDefs } = require('./user.types');
+import { gql } from 'apollo-server-express';
+import productsTypeDefs from './products.types.js';
+import userTypeDefs from './user.types.js';
 
 const rootTypeDefs = gql`
 	scalar DateTime
+	scalar Upload
+
+	input UploadInput {
+		file: Upload!
+		path: String!
+	}
+
+	type UploadResponse {
+		ETag: String!
+		Location: String!
+		key: String!
+		Key: String!
+		Bucket: String!
+	}
 
 	type Query {
 		_: String
@@ -16,4 +30,4 @@ const rootTypeDefs = gql`
 
 const typeDefs = [rootTypeDefs, productsTypeDefs, userTypeDefs];
 
-module.exports = { typeDefs };
+export default typeDefs;

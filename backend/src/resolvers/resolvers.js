@@ -1,9 +1,13 @@
-const { GraphQLDateTime } = require('graphql-iso-date');
-const { productsResolvers } = require('./products.resolver');
-const { usersResolvers } = require('./user.resolver');
+import datePkg from 'graphql-iso-date';
+const { GraphQLDateTime } = datePkg;
+import productsResolvers from './products.resolver.js';
+import usersResolvers from './user.resolver.js';
+import GraphQLUpload from 'graphql-upload/GraphQLUpload.mjs';
 
 const Date = { DateTime: GraphQLDateTime };
 
-const resolvers = [Date, productsResolvers, usersResolvers];
+const Upload = { Upload: GraphQLUpload };
 
-module.exports = { resolvers };
+const resolvers = [Date, Upload, productsResolvers, usersResolvers];
+
+export default resolvers;

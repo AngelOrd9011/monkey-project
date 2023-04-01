@@ -2,7 +2,7 @@ import { RiCopyrightLine } from 'react-icons/ri';
 
 const Footer = () => {
 	return (
-		<div className="sticky-footer">
+		<footer className="sticky-footer">
 			<div className="app-footer">
 				<span className="contact">
 					<a href="https://www.instagram.com/angelord90/" target="_blank" rel="noreferrer">
@@ -23,7 +23,7 @@ const Footer = () => {
 					<RiCopyrightLine /> {'  '}AngelOrd9011
 				</span>
 			</div>
-		</div>
+		</footer>
 	);
 };
 export default Footer;

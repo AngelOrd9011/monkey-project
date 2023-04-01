@@ -5,10 +5,10 @@ import { Password } from 'primereact/password';
 import useAuthenticate from '../../hooks/useAuthenticate';
 
 const RegisterForm = ({ showToast }) => {
-	const [username, setUsername] = useState(null);
-	const [email, setEmail] = useState(null);
-	const [password, setPassword] = useState(null);
-	const [passwordConfirm, setPasswordConfirm] = useState(null);
+	const [username, setUsername] = useState('');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [passwordConfirm, setPasswordConfirm] = useState('');
 	const { singUp } = useAuthenticate();
 
 	const sendLoginData = () => {

@@ -1,6 +1,8 @@
-const { Schema, model } = require('mongoose');
-const validator = require('validator');
-const bcrypt = require('bcryptjs');
+import { Schema, model } from 'mongoose';
+import validatorPkg from 'validator';
+const { isEmail } = validatorPkg;
+import bcryptjsPkg from 'bcryptjs';
+const { hash, compare } = bcryptjsPkg;
 
 const userSchema = new Schema(
 	{
@@ -12,7 +14,7 @@ const userSchema = new Schema(
 			type: String,
 			required: [true, 'El correo electrónico es requerido'],
 			unique: true,
-			validate: [validator.isEmail, 'La dirección de correo electrónico es invalida'],
+			validate: [isEmail, 'La dirección de correo electrónico es invalida'],
 			lowercase: true,
 		},
 		password: {
@@ -33,7 +35,7 @@ const userSchema = new Schema(
 		},
 		photo: {
 			type: String,
-			default: 'default.png',
+			default: 'http://localhost:9000/monkey/users/default.png',
 		},
 		role: {
 			type: String,
@@ -55,7 +57,7 @@ userSchema.pre('save', async function (next) {
 	if (!this.isModified('password')) return next();
 
 	// Hash password with strength of 12
-	this.password = await bcrypt.hash(this.password, 12);
+	this.password = await hash(this.password, 12);
 
 	// Remove the password confirm field
 	this.passwordConfirm = undefined;
@@ -63,7 +65,7 @@ userSchema.pre('save', async function (next) {
 });
 
 userSchema.methods.comparePasswords = async function (candidatePassword, hashedPassword) {
-	return await bcrypt.compare(candidatePassword, hashedPassword);
+	return await compare(candidatePassword, hashedPassword);
 };
 
-module.exports = model('User', userSchema);
+export default model('User', userSchema);

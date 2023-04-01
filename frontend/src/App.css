@@ -116,6 +116,9 @@ h1 {
 	.p-dialog {
 		width: 90% !important;
 	}
+	.login-div {
+		width: 90%;
+	}
 }
 
 @keyframes app-logo-float {
@@ -194,7 +197,7 @@ h1 {
 .p-dialog-header-close {
 	background-color: #704cb6 !important;
 	color: #fff !important;
-	border: solid 1px #a7ffeb !important;
+	/* border: solid 1px #a7ffeb !important; */
 }
 
 .p-dialog {
@@ -211,7 +214,7 @@ h1 {
 }
 
 .login-div {
-	width: 22vw;
+	min-width: 25vw;
 	min-height: 40vh;
 	background-color: #704cb6;
 	color: #fff;
@@ -275,4 +278,36 @@ h1 {
 
 .login-pass i {
 	color: #ef6c00 !important;
+}
+.p-datatable .p-datatable-thead > tr > th {
+	color: #fff !important;
+	background-color: #ef6c00 !important;
+}
+
+.p-datatable .p-datatable-tbody > tr {
+	background-color: #704cb6 !important;
+	color: #fff !important;
+}
+.monkey-avatar,
+.image-selector {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.profile-picture {
+	width: 30vh;
+	height: 30vh;
+	border-radius: 15px;
+	border: solid 1px #a7ffeb !important;
+	background-color: #ef6c00 !important;
+}
+
+.personal-data-container {
+	width: 100%;
+	min-height: 30vh;
+	background-color: #ef6c00;
+	border-radius: 15px;
+	padding: 1rem;
 }

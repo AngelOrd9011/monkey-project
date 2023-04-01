@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server-express');
+import { gql } from 'apollo-server-express';
 
 const userTypeDefs = gql`
 	extend type Query {
@@ -14,6 +14,7 @@ const userTypeDefs = gql`
 		# Auth
 		loginUser(input: LoginInput!): TokenResponse!
 		signupUser(input: SignUpInput!): UserResponse!
+		updateUser(input: UserInput!): UserResponse!
 	}
 
 	input SignUpInput {
@@ -21,7 +22,15 @@ const userTypeDefs = gql`
 		email: String!
 		password: String!
 		passwordConfirm: String!
+	}
+
+	input UserInput {
+		name: String!
+		email: String!
+		password: String!
+		passwordConfirm: String!
 		photo: String
+		upload: UploadInput
 	}
 
 	input LoginInput {
@@ -37,6 +46,7 @@ const userTypeDefs = gql`
 	type UserResponse {
 		status: String!
 		user: UserData!
+		uploaded: UploadResponse
 	}
 
 	type UserData {
@@ -50,6 +60,4 @@ const userTypeDefs = gql`
 	}
 `;
 
-module.exports = {
-	userTypeDefs,
-};
+export default userTypeDefs;

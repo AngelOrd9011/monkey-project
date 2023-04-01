@@ -60,7 +60,7 @@ db.users.insertMany([
 		name: 'Administrator',
 		email: 'admin@ejemplo.com',
 		password: '$2a$12$MvG9OVguxwW3h9xLU/RqtO2hhAtPvtETEOAgOk1VtHTp1XQaryOXu', // test1234
-		photo: 'default.png',
+		photo: 'http://localhost:9000/monkey/users/default.png',
 		role: 'admin',
 		verified: true,
 	},
@@ -68,7 +68,7 @@ db.users.insertMany([
 		name: 'SingleUser',
 		email: 'user@ejemplo.com',
 		password: '$2a$12$MvG9OVguxwW3h9xLU/RqtO2hhAtPvtETEOAgOk1VtHTp1XQaryOXu', // test1234
-		photo: 'default.png',
+		photo: 'http://localhost:9000/monkey/users/default.png',
 		role: 'user',
 		verified: true,
 	},

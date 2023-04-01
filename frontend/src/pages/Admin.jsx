@@ -1,19 +1,28 @@
-import { Button } from 'primereact/button';
-import useAuthenticate from '../hooks/useAuthenticate';
 import useProfile from '../hooks/useProfile';
 import { Loading } from '../components/layouts/Loading';
 import { ErrorMessage } from '../components/layouts/ErrorMessage';
+import Header from '../components/layouts/Header';
+import useLocalStorage from '../hooks/useLocalStorage';
+import Stock from './Stock';
+import Profile from './Profile';
 
 const Admin = () => {
-	const { logout } = useAuthenticate();
+	const [routeStored, setRouteStored] = useLocalStorage('MonkeyConsole', 'stock');
 	const { profile, loading } = useProfile();
 	if (loading) return <Loading />;
 	if (profile.role !== 'admin') return <ErrorMessage accessDenied />;
 
 	return (
 		<>
-			<h1>Admin Console</h1>
-			<Button className="orange-btn" icon="pi pi-sign-out" label="Cerrar sesión" onClick={() => logout()} />
+			<Header page={routeStored} setPage={setRouteStored} />
+			<main className="main-content">
+				<div className="grid">
+					<div className="col-12 md:col-8 md:col-offset-2">
+						{routeStored === 'stock' && <Stock />}
+						{routeStored === 'profile' && <Profile setPage={setRouteStored} />}
+					</div>
+				</div>
+			</main>
 		</>
 	);
 };

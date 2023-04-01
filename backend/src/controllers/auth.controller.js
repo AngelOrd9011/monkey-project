@@ -1,10 +1,10 @@
-const { AuthenticationError, ForbiddenError } = require('apollo-server-core');
-const config = require('config');
-const { checkIsLoggedIn } = require('../middleware/checkIsLoggedIn');
-const User = require('../models/User');
-const { redisClient } = require('../utils/connectRedis');
-const { signJwt, verifyJwt } = require('../utils/jwt');
-const { errorHandler } = require('./error.controller');
+import { AuthenticationError, ForbiddenError } from 'apollo-server-core';
+import config from 'config';
+import checkIsLoggedIn from '../middleware/checkIsLoggedIn.js';
+import User from '../models/User.js';
+import redisClient from '../utils/connectRedis.js';
+import { signJwt, verifyJwt } from '../utils/jwt.js';
+import errorHandler from './error.controller.js';
 
 const accessTokenExpireIn = config.get('jwtAccessTokenExpiresIn');
 const refreshTokenExpireIn = config.get('jwtRefreshTokenExpiresIn');
@@ -96,6 +96,7 @@ const login = async (parent, { input: { email, password } }, { req, res }) => {
 			access_token,
 		};
 	} catch (error) {
+		console.log(error);
 		errorHandler(error);
 	}
 };
@@ -128,7 +129,7 @@ const refreshAccessToken = async (parent, args, { req, res }) => {
 
 		// Sign new access token
 		const access_token = signJwt({ user: user._id }, process.env.JWT_ACCESS_PRIVATE_KEY, {
-			expiresIn: config.get('jwtAccessTokenExpiresIn'),
+			expiresIn: get('jwtAccessTokenExpiresIn'),
 		});
 
 		// Send access token cookie
@@ -175,4 +176,4 @@ const authController = {
 	logoutHandler,
 };
 
-module.exports = { authController };
+export default authController;

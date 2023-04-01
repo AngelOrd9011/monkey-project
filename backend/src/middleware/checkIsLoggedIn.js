@@ -1,5 +1,5 @@
-const { AuthenticationError } = require('apollo-server-core');
-const { errorHandler } = require('../controllers/error.controller');
+import { AuthenticationError } from 'apollo-server-core';
+import errorHandler from '../controllers/error.controller.js';
 
 const checkIsLoggedIn = async (req, getAuthUser) => {
 	try {
@@ -16,4 +16,4 @@ const checkIsLoggedIn = async (req, getAuthUser) => {
 	}
 };
 
-module.exports = { checkIsLoggedIn };
+export default checkIsLoggedIn;

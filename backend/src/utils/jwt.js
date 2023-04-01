@@ -1,23 +1,22 @@
-const jwt = require('jsonwebtoken');
-const { errorHandler } = require('../controllers/error.controller');
+import jwtPkg from 'jsonwebtoken';
+const { sign, verify } = jwtPkg;
+import errorHandler from '../controllers/error.controller.js';
 
-const signJwt = (payload, Key, options) => {
+export const signJwt = (payload, Key, options) => {
 	const privateKey = Buffer.from(Key, 'base64').toString('ascii');
-	return jwt.sign(payload, privateKey, {
+	return sign(payload, privateKey, {
 		...(options && options),
 		algorithm: 'RS256',
 		allowInsecureKeySizes: true,
 	});
 };
 
-const verifyJwt = (token, Key) => {
+export const verifyJwt = (token, Key) => {
 	try {
 		const publicKey = Buffer.from(Key, 'base64').toString('ascii');
-		const decoded = jwt.verify(token, publicKey);
+		const decoded = verify(token, publicKey);
 		return decoded;
 	} catch (error) {
 		errorHandler(error);
 	}
 };
-
-module.exports = { signJwt, verifyJwt };

@@ -24,7 +24,7 @@ export const ProductCard = ({ product }) => {
 		return (
 			<>
 				{product.name}
-				<Button icon="pi pi-plus" rounded aria-label="Filter" className="product-card-btn" onClick={() => setShow(true)} />
+				<Button icon="pi pi-plus" rounded className="product-card-btn" onClick={() => setShow(true)} />
 			</>
 		);
 	};

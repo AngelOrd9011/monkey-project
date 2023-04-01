@@ -1,8 +1,8 @@
-const { ForbiddenError } = require('apollo-server-core');
-const { errorHandler } = require('../controllers/error.controller');
-const User = require('../models/User');
-const { redisClient } = require('../utils/connectRedis');
-const { verifyJwt } = require('../utils/jwt');
+import { ForbiddenError } from 'apollo-server-core';
+import errorHandler from '../controllers/error.controller.js';
+import User from '../models/User.js';
+import redisClient from '../utils/connectRedis.js';
+import { verifyJwt } from '../utils/jwt.js';
 
 const authUser = async (req) => {
 	try {
@@ -42,4 +42,4 @@ const authUser = async (req) => {
 	}
 };
 
-module.exports = { authUser };
+export default authUser;

@@ -1,6 +1,6 @@
-const { errorHandler } = require('./error.controller');
-const { checkIsLoggedIn } = require('../middleware/checkIsLoggedIn');
-const Product = require('../models/Product');
+import errorHandler from './error.controller.js';
+import checkIsLoggedIn from '../middleware/checkIsLoggedIn.js';
+import Product from '../models/Product.js';
 
 const getProducts = async (_, { id }) => {
 	try {
@@ -69,4 +69,4 @@ const deleteProduct = async (_, { id }, { req, authUser }) => {
 
 const productsController = { getProducts, addProduct, updateProduct, deleteProduct };
 
-module.exports = { productsController };
+export default productsController;
