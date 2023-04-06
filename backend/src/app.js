@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { graphqlUploadExpress } from 'graphql-upload';
+import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
 import resolvers from './resolvers/resolvers.js';
 import typeDefs from './schema/schema.js';
 import connectDB from './utils/connectDB.js';
@@ -22,6 +23,11 @@ const init = async () => {
 		resolvers,
 		context: async ({ req, res }) => ({ req, res, authUser }),
 		uploads: false,
+		persistedQueries: false,
+		cache: new InMemoryLRUCache({
+			maxSize: Math.pow(2, 20) * 100,
+			ttl: 300_000,
+		}),
 	});
 
 	await apolloServer.start();
@@ -44,7 +50,7 @@ const init = async () => {
 		res.status(404).send('not found');
 	});
 
-	app.listen(process.env.PORT || 4000, () => console.log('Server on port', process.env.PORT || 4000));
+	app.listen(process.env.PORT, () => console.log('Server on port', process.env.PORT));
 };
 
 init();

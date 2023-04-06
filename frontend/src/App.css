@@ -304,6 +304,10 @@ h1 {
 	background-color: #ef6c00 !important;
 }
 
+.profile-picture img {
+	object-fit: cover;
+}
+
 .personal-data-container {
 	width: 100%;
 	min-height: 30vh;
