@@ -4,6 +4,8 @@
 # Usar como base la imagen oficial de Node (v8)
 FROM node:16-alpine as build
 #Variables de entorno
+ARG MINIO_URI
+ENV REACT_APP_MINIO_URI=$MINIO_URI
 
 ARG GRAPHQL_URI
 ENV REACT_APP_GRAPHQL_URI=$GRAPHQL_URI

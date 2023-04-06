@@ -1,5 +1,7 @@
 import errorHandler from './error.controller.js';
 import checkIsLoggedIn from '../middleware/checkIsLoggedIn.js';
+import { createUploadStream } from '../utils/streams.js';
+import User from '../models/User.js';
 
 const getMe = async (_, args, { req, authUser }) => {
 	try {
@@ -16,15 +18,14 @@ const getMe = async (_, args, { req, authUser }) => {
 	}
 };
 
-const fileUpload = async (file, path) => {
+const fileUpload = async ({ file, path }) => {
 	const { filename, createReadStream } = await file;
-
 	const stream = createReadStream();
 
 	let result;
 
 	try {
-		const uploadStream = createUploadStream({ filename, path });
+		const uploadStream = createUploadStream(filename, path);
 		stream.pipe(uploadStream.writeStream);
 		result = await uploadStream.promise;
 	} catch (error) {
@@ -35,20 +36,17 @@ const fileUpload = async (file, path) => {
 	return result;
 };
 
-const updateUser = async (_, { input }, { req, authUser }) => {
+const updateUser = async (_, { email, input }, { req, authUser }) => {
 	try {
 		await checkIsLoggedIn(req, authUser);
-		const { name, email, password, passwordConfirm, photo } = input;
+		const { name, photo } = input;
 
 		const uploaded = await fileUpload(input.upload);
-		const user = await Product.findByIdAndUpdate(
-			id,
+		const user = await User.findOneAndUpdate(
+			{ email },
 			{
 				$set: {
 					name,
-					email,
-					password,
-					passwordConfirm,
 					photo,
 				},
 			},

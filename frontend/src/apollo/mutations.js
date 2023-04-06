@@ -18,3 +18,20 @@ export const MUTATION_SINGUP = gql`
 		}
 	}
 `;
+
+export const MUTATION_UPDATE_USER = gql`
+	mutation ($email: String!, $input: UserInput!) {
+		updateUser(email: $email, input: $input) {
+			status
+			user {
+				name
+				email
+				photo
+				role
+			}
+			uploaded {
+				Location
+			}
+		}
+	}
+`;

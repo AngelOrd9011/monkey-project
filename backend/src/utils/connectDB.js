@@ -3,7 +3,7 @@ import { connect, set } from 'mongoose';
 const connectDB = async () => {
 	try {
 		set('strictQuery', true);
-		await connect(process.env.MONGODB_URI || 'mongodb://monkeyadmin:password@localhost:27017/monkey', {
+		await connect(process.env.MONGODB_URI, {
 			useUnifiedTopology: true,
 			serverSelectionTimeoutMS: 60000,
 		});

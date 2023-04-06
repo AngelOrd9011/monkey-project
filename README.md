@@ -36,7 +36,6 @@
 
   - fronend - 80
   - backend - 4000
-  - companion - 5002
   - minio - 9000 y 9002
   - redis - 6379
   - mongodb - 27031

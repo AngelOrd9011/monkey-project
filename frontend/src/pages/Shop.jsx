@@ -29,7 +29,7 @@ const Shop = () => {
 						{routeStored === 'contact' && <Contact />}
 						{(routeStored === 'all' || routeStored === 'male' || routeStored === 'female') && <Catalog catalogType={routeStored} />}
 						{routeStored === 'cart' && <Cart />}
-						{routeStored === 'profile' && <Profile setPage={setRouteStored} />}
+						{routeStored === 'profile' && <Profile setPage={setRouteStored} showToast={showToast} />}
 					</div>
 				</div>
 			</main>

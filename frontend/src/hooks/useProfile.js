@@ -11,13 +11,24 @@ const useProfile = () => {
 	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [token] = useSessionStorage('token', '');
-	const [loadProfile] = useLazyQuery(QUERY_USER_PROFILE, {
+	const [loadProfile, { refetch: profileRefetch }] = useLazyQuery(QUERY_USER_PROFILE, {
 		context: {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
 		},
 	});
+
+	const refetch = () => {
+		profileRefetch()
+			.then(({ data, loading }) => {
+				setLoading(loading);
+				dispatch(setProfile(data.getMe.user));
+			})
+			.catch((e) => {
+				setError(e);
+			});
+	};
 
 	useEffect(() => {
 		loadProfile()
@@ -30,7 +41,7 @@ const useProfile = () => {
 			});
 	}, [loadProfile, dispatch]);
 
-	return { profile, loading, error };
+	return { profile, loading, error, refetch, token };
 };
 
 export default useProfile;

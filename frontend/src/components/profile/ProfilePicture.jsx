@@ -6,6 +6,7 @@ export const ProfilePicture = ({ input, setInput, fileUploadRef }) => {
 		let _input = { ...input };
 		_input.photo = event.files[0].objectURL;
 		setInput(_input);
+		// fileUploadRef.current.clear();
 	};
 
 	const chooseOptions = {
@@ -25,7 +26,7 @@ export const ProfilePicture = ({ input, setInput, fileUploadRef }) => {
 						<FileUpload
 							ref={fileUploadRef}
 							mode="basic"
-							accept="image/*"
+							accept=".jpg"
 							name="profile"
 							chooseOptions={chooseOptions}
 							chooseLabel="Seleccionar foto de perfil"

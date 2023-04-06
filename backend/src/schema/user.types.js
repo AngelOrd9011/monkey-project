@@ -14,7 +14,7 @@ const userTypeDefs = gql`
 		# Auth
 		loginUser(input: LoginInput!): TokenResponse!
 		signupUser(input: SignUpInput!): UserResponse!
-		updateUser(input: UserInput!): UserResponse!
+		updateUser(email: String!, input: UserInput!): UserResponse!
 	}
 
 	input SignUpInput {
@@ -27,8 +27,6 @@ const userTypeDefs = gql`
 	input UserInput {
 		name: String!
 		email: String!
-		password: String!
-		passwordConfirm: String!
 		photo: String
 		upload: UploadInput
 	}
