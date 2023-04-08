@@ -1,9 +1,9 @@
 import { connect, set } from 'mongoose';
 
-const connectDB = async () => {
+const connectDB = () => {
 	try {
 		set('strictQuery', true);
-		await connect(process.env.MONGODB_URI, {
+		connect(process.env.MONGODB_URI, {
 			useUnifiedTopology: true,
 			serverSelectionTimeoutMS: 60000,
 		});

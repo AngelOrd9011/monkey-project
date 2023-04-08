@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 import { Button } from 'primereact/button';
 import useProfile from '../hooks/useProfile';
 import { ProfilePicture } from '../components/profile/ProfilePicture';
@@ -10,24 +10,26 @@ const Profile = ({ setPage, showToast }) => {
 	const { profile, refetch, token } = useProfile();
 	const [input, setInput] = useState({ ...profile });
 	const [update] = useMutation(MUTATION_UPDATE_USER);
+	const [photo, setPhoto] = useState(null);
 
 	useEffect(() => {
 		if (!profile.name) setPage('home');
 	}, [setPage, profile]);
 
+	const disabled = useMemo(() => {
+		console.log(JSON.stringify(input), JSON.stringify(profile));
+		return JSON.stringify(input) === JSON.stringify(profile);
+	}, [input, profile]);
+
+	const cancelUpload = () => {
+		setInput({ ...profile });
+		setPhoto(null);
+		fileUploadRef.current.clear();
+	};
+
 	const saveUserChanges = async () => {
-		let _input = { ...input, upload: { file: null, path: null } };
-		delete _input.role;
-		let files = fileUploadRef.current.getFiles();
-		let _file = files[0];
-		let blob = await fetch(_file.objectURL).then((r) => r.blob());
-		let file = new File([blob], _file.name);
-		let _photo = process.env.REACT_APP_MINIO_URI + 'monkey/users/' + file.name;
-		_input.photo = _photo;
-		_input.upload.file = file;
-		_input.upload.path = 'users';
 		update({
-			variables: { email: _input.email, input: _input },
+			variables: { email: input.email, input: input },
 			context: {
 				headers: {
 					Authorization: `Bearer ${token}`,
@@ -36,9 +38,12 @@ const Profile = ({ setPage, showToast }) => {
 		})
 			.then(() => {
 				refetch();
+				setInput({ ...profile });
+				setPhoto(null);
 				showToast('success', 'OK!', 'Información actualizada exitosamente');
 			})
 			.catch((e) => {
+				console.log(e);
 				let error = JSON.parse(JSON.stringify(e));
 				showToast('error', 'Oops!', error.message);
 			});
@@ -49,11 +54,18 @@ const Profile = ({ setPage, showToast }) => {
 			<h1>Mi perfil</h1>
 			<div className="grid">
 				<div className="col-12 md:col-3">
-					<ProfilePicture input={input} setInput={setInput} fileUploadRef={fileUploadRef} />
+					<ProfilePicture
+						input={input}
+						setInput={setInput}
+						photo={photo}
+						setPhoto={setPhoto}
+						fileUploadRef={fileUploadRef}
+						cancelUpload={cancelUpload}
+					/>
 				</div>
 				<div className="col-12 md:col-9" style={{ padding: '1rem' }}>
 					<div className="personal-data-container">
-						<Button label="Guardar" className="p-button-rounded" onClick={() => saveUserChanges()} />
+						<Button label="Guardar" className="p-button-rounded" onClick={() => saveUserChanges()} disabled={disabled} />
 					</div>
 				</div>
 			</div>

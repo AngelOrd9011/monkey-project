@@ -22,6 +22,14 @@ export const QUERY_LOGOUT = gql`
 	}
 `;
 
+export const QUERY_REFRESH_TOKEN = gql`
+	{
+		refreshAccessToken {
+			access_token
+		}
+	}
+`;
+
 /////////////////Productos////////////////////
 
 export const QUERY_GET_ALL_PRODUCTS = gql`

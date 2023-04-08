@@ -13,7 +13,7 @@ const Admin = () => {
 	if (profile.role !== 'admin') return <ErrorMessage accessDenied />;
 
 	return (
-		<>
+		<div onMouseMove={() => console.log('hola')}>
 			<Header page={routeStored} setPage={setRouteStored} />
 			<main className="main-content">
 				<div className="grid">
@@ -23,7 +23,7 @@ const Admin = () => {
 					</div>
 				</div>
 			</main>
-		</>
+		</div>
 	);
 };
 

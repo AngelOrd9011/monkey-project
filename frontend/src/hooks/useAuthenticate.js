@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import useSessionStorage from './useSessionStorage';
 import { useMutation, useLazyQuery } from '@apollo/client';
 import { MUTATION_LOGIN, MUTATION_SINGUP } from '../apollo/mutations';
-import { QUERY_LOGOUT } from '../apollo/queries';
+import { QUERY_LOGOUT, QUERY_REFRESH_TOKEN } from '../apollo/queries';
 
 const useAuthenticate = () => {
 	const [token, setToken] = useSessionStorage('token', '');
@@ -15,12 +15,30 @@ const useAuthenticate = () => {
 			},
 		},
 	});
+	const [getToken] = useLazyQuery(QUERY_REFRESH_TOKEN, {
+		context: {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		},
+	});
 
 	const authenticated = useMemo(() => {
 		let _authenticated = false;
 		if (token) _authenticated = true;
 		return _authenticated;
 	}, [token]);
+
+	let stopped = null;
+
+	const refreshToken = () => {
+		clearTimeout(stopped);
+		if (authenticated) {
+			stopped = setTimeout(() => {
+				getToken().then(({ data }) => setToken(data.access_token));
+			}, 900000);
+		}
+	};
 
 	const login = (email, password, showToast) => {
 		auth({ variables: { input: { email, password } } })
@@ -59,6 +77,7 @@ const useAuthenticate = () => {
 
 	return {
 		authenticated,
+		refreshToken,
 		login,
 		logout,
 		singUp,

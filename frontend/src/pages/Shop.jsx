@@ -10,16 +10,18 @@ import useToast from '../hooks/useToast';
 import useProfile from '../hooks/useProfile';
 import { Loading } from '../components/layouts/Loading';
 import Profile from './Profile';
+import useAuthenticate from '../hooks/useAuthenticate';
 
 const Shop = () => {
 	const [routeStored, setRouteStored] = useLocalStorage('MonkeyPage', 'home');
 	const { toast, showToast } = useToast();
 	const { loading } = useProfile();
+	const { refreshToken } = useAuthenticate();
 
 	if (loading) return <Loading />;
 
 	return (
-		<>
+		<div onMouseMove={() => refreshToken()}>
 			<Header page={routeStored} setPage={setRouteStored} showToast={showToast} />
 			<Toast ref={toast} />
 			<main className="main-content">
@@ -34,7 +36,7 @@ const Shop = () => {
 				</div>
 			</main>
 			<Footer />
-		</>
+		</div>
 	);
 };
 

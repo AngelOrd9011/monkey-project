@@ -10,6 +10,10 @@ const validateEnv = () => {
 
 		JWT_REFRESH_PRIVATE_KEY: str(),
 		JWT_REFRESH_PUBLIC_KEY: str(),
+
+		MINIO_URI: str(),
+		MINIO_USER: str(),
+		MINIO_PASSWORD: str(),
 	});
 };
 
