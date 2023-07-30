@@ -13,6 +13,7 @@ const usersResolvers = {
 		// Auth
 		signupUser: authController.signup,
 		loginUser: authController.login,
+		verifyUser: authController.verify,
 		//Users
 		updateUser: userController.updateUser,
 	},

@@ -1,13 +1,28 @@
 import errorHandler from './error.controller.js';
 import checkIsLoggedIn from '../middleware/checkIsLoggedIn.js';
-import { createUploadStream } from '../utils/streams.js';
+import { createUploadStream } from '../config/upload/streams.js';
 import User from '../models/User.js';
+import mailerController from './mailer.controller.js';
+import { getAccessToken } from '../middleware/authUser.js';
 
 const getMe = async (_, args, { req, authUser }) => {
 	try {
 		await checkIsLoggedIn(req, authUser);
 
 		const user = await authUser(req);
+
+		if (!user.verified) {
+			let access_token = getAccessToken(req);
+			let message = `<h2>¡Bienvenido!</h2>
+			<p>Para verificar tu usuario, ingresa al siguiente enlace:</p>
+			<a href='http://localhost:3000/${access_token}'>Verifica tu usuario AQUÍ</a>`;
+			let subject = 'Verificación de usuario';
+			let mail_address = user.email;
+			mailerController.sender(null, { mail_address, subject, message, contentHTML: true });
+			return {
+				status: 'not-verified',
+			};
+		}
 
 		return {
 			status: 'success',
@@ -41,7 +56,9 @@ const updateUser = async (_, { email, input }, { req, authUser }) => {
 		await checkIsLoggedIn(req, authUser);
 		const { name, photo } = input;
 
-		const uploaded = await fileUpload(input.upload);
+		let uploaded;
+		if (input.upload) await fileUpload(input.upload);
+
 		const user = await User.findOneAndUpdate(
 			{ email },
 			{

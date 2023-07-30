@@ -2,9 +2,10 @@ import { AuthenticationError, ForbiddenError } from 'apollo-server-core';
 import config from 'config';
 import checkIsLoggedIn from '../middleware/checkIsLoggedIn.js';
 import User from '../models/User.js';
-import redisClient from '../utils/connectRedis.js';
+import redisClient from '../config/database/connectRedis.js';
 import { signJwt, verifyJwt } from '../utils/jwt.js';
 import errorHandler from './error.controller.js';
+import { checkSession } from '../middleware/authUser.js';
 
 const accessTokenExpireIn = config.get('jwtAccessTokenExpiresIn');
 const refreshTokenExpireIn = config.get('jwtRefreshTokenExpiresIn');
@@ -30,7 +31,7 @@ const refreshTokenCookieOptions = {
 
 if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
 
-const signup = async (parent, { input: { name, email, password, passwordConfirm } }, { req }) => {
+const signup = async (_, { input: { name, email, password, passwordConfirm } }, { req }) => {
 	try {
 		const user = await User.create({
 			name,
@@ -69,7 +70,7 @@ async function signTokens(user) {
 	return { access_token, refresh_token };
 }
 
-const login = async (parent, { input: { email, password } }, { req, res }) => {
+const login = async (_, { input: { email, password } }, { req, res }) => {
 	try {
 		// Check if user exist and password is correct
 		const user = await User.findOne({ email }).select('+password +verified');
@@ -101,7 +102,7 @@ const login = async (parent, { input: { email, password } }, { req, res }) => {
 	}
 };
 
-const refreshAccessToken = async (parent, args, { req, res }) => {
+const refreshAccessToken = async (_, args, { req, res }) => {
 	try {
 		// Get the refresh token
 		const { refresh_token } = req.cookies;
@@ -169,11 +170,32 @@ const logoutHandler = async (_, args, { req, res, authUser }) => {
 	}
 };
 
+const verify = async (_, { token }) => {
+	const session = await checkSession(token);
+	let email = JSON.parse(session).email;
+	const user = await User.findOneAndUpdate(
+		{ email },
+		{
+			$set: {
+				verified: true,
+			},
+		},
+		{
+			new: true,
+		}
+	);
+	return {
+		status: 'success',
+		user,
+	};
+};
+
 const authController = {
 	signup,
 	login,
 	refreshAccessToken,
 	logoutHandler,
+	verify,
 };
 
 export default authController;

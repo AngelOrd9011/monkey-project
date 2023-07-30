@@ -6,6 +6,7 @@ import Admin from './pages/Admin';
 import { ErrorMessage } from './components/layouts/ErrorMessage';
 import Login from './components/login/Login';
 import useAuthenticate from './hooks/useAuthenticate';
+import { Loading } from './components/layouts/Loading';
 
 const App = () => {
 	const { authenticated } = useAuthenticate();
@@ -18,6 +19,10 @@ const App = () => {
 		{
 			path: '/',
 			element: <Shop />,
+		},
+		{
+			path: '/:token',
+			element: <Loading verifying />,
 		},
 		{
 			path: 'admin-console',

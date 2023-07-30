@@ -19,8 +19,8 @@ const useProfile = () => {
 		},
 	});
 
-	const refetch = () => {
-		profileRefetch()
+	const refetch = async () => {
+		await profileRefetch()
 			.then(({ data, loading }) => {
 				setLoading(loading);
 				dispatch(setProfile(data.getMe.user));
@@ -33,8 +33,12 @@ const useProfile = () => {
 	useEffect(() => {
 		loadProfile()
 			.then(({ data, loading }) => {
+				if (!data?.getMe.user) {
+					setError(data.getMe.status);
+				} else {
+					dispatch(setProfile(data.getMe.user));
+				}
 				setLoading(loading);
-				dispatch(setProfile(data.getMe.user));
 			})
 			.catch((e) => {
 				setError(e);

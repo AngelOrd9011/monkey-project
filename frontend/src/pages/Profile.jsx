@@ -17,14 +17,13 @@ const Profile = ({ setPage, showToast }) => {
 	}, [setPage, profile]);
 
 	const disabled = useMemo(() => {
-		console.log(JSON.stringify(input), JSON.stringify(profile));
 		return JSON.stringify(input) === JSON.stringify(profile);
 	}, [input, profile]);
 
 	const cancelUpload = () => {
 		setInput({ ...profile });
 		setPhoto(null);
-		fileUploadRef.current.clear();
+		// fileUploadRef.current.clear();
 	};
 
 	const saveUserChanges = async () => {
@@ -38,12 +37,11 @@ const Profile = ({ setPage, showToast }) => {
 		})
 			.then(() => {
 				refetch();
-				setInput({ ...profile });
 				setPhoto(null);
+				setInput({ ...profile });
 				showToast('success', 'OK!', 'Información actualizada exitosamente');
 			})
 			.catch((e) => {
-				console.log(e);
 				let error = JSON.parse(JSON.stringify(e));
 				showToast('error', 'Oops!', error.message);
 			});

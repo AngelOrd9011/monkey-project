@@ -5,15 +5,18 @@ import Header from '../components/layouts/Header';
 import useLocalStorage from '../hooks/useLocalStorage';
 import Stock from './Stock';
 import Profile from './Profile';
+import useAuthenticate from '../hooks/useAuthenticate';
 
 const Admin = () => {
 	const [routeStored, setRouteStored] = useLocalStorage('MonkeyConsole', 'stock');
 	const { profile, loading } = useProfile();
+	const { refreshToken } = useAuthenticate();
+
 	if (loading) return <Loading />;
 	if (profile.role !== 'admin') return <ErrorMessage accessDenied />;
 
 	return (
-		<div onMouseMove={() => console.log('hola')}>
+		<div onMouseMove={() => refreshToken()}>
 			<Header page={routeStored} setPage={setRouteStored} />
 			<main className="main-content">
 				<div className="grid">

@@ -11,14 +11,16 @@ import useProfile from '../hooks/useProfile';
 import { Loading } from '../components/layouts/Loading';
 import Profile from './Profile';
 import useAuthenticate from '../hooks/useAuthenticate';
+import { ErrorMessage } from '../components/layouts/ErrorMessage';
 
 const Shop = () => {
 	const [routeStored, setRouteStored] = useLocalStorage('MonkeyPage', 'home');
 	const { toast, showToast } = useToast();
-	const { loading } = useProfile();
+	const { loading, error } = useProfile();
 	const { refreshToken } = useAuthenticate();
 
 	if (loading) return <Loading />;
+	if (error && error === 'not-verified') return <ErrorMessage notVerified />;
 
 	return (
 		<div onMouseMove={() => refreshToken()}>

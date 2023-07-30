@@ -35,3 +35,11 @@ export const MUTATION_UPDATE_USER = gql`
 		}
 	}
 `;
+
+export const MUTATION_VERIFY_USER = gql`
+	mutation ($token: String!) {
+		verifyUser(token: $token) {
+			status
+		}
+	}
+`;

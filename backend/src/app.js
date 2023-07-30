@@ -5,10 +5,11 @@ import { graphqlUploadExpress } from 'graphql-upload';
 import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
 import resolvers from './resolvers/resolvers.js';
 import typeDefs from './schema/schema.js';
-import connectDB from './utils/connectDB.js';
+import connectDB from './config/database/connectDB.js';
 import authUser from './middleware/authUser.js';
 import validateEnv from './utils/validateEnv.js';
 import cors from 'cors';
+import { transporter } from './config/smtp/SMTPtransporter.js';
 
 dotenv.config();
 validateEnv();
@@ -40,7 +41,7 @@ const init = async () => {
 
 	connectDB();
 
-	apolloServer.applyMiddleware({ app, path: '/api' });
+	apolloServer.applyMiddleware({ app, path: '/v1/api' });
 
 	app.get('/', (_req, res) => {
 		res.send('GraphQL API is alive!');
@@ -51,6 +52,14 @@ const init = async () => {
 	});
 
 	app.listen(process.env.PORT, () => console.log('Server on port', process.env.PORT));
+
+	transporter.verify(function (error) {
+		if (error) {
+			console.log(error);
+		} else {
+			console.log('SMTP transporter is ready');
+		}
+	});
 };
 
 init();
