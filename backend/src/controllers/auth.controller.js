@@ -1,5 +1,4 @@
 import { AuthenticationError, ForbiddenError } from 'apollo-server-core';
-import config from 'config';
 import checkIsLoggedIn from '../middleware/checkIsLoggedIn.js';
 import User from '../models/User.js';
 import redisClient from '../config/database/connectRedis.js';
@@ -7,8 +6,8 @@ import { signJwt, verifyJwt } from '../utils/jwt.js';
 import errorHandler from './error.controller.js';
 import { checkSession } from '../middleware/authUser.js';
 
-const accessTokenExpireIn = config.get('jwtAccessTokenExpiresIn');
-const refreshTokenExpireIn = config.get('jwtRefreshTokenExpiresIn');
+const accessTokenExpireIn = 60;
+const refreshTokenExpireIn = 60;
 
 const cookieOptions = {
 	httpOnly: true,
@@ -59,12 +58,12 @@ async function signTokens(user) {
 
 	// Create access token
 	const access_token = signJwt({ user: user.id }, process.env.JWT_ACCESS_PRIVATE_KEY, {
-		expiresIn: `${config.get('jwtAccessTokenExpiresIn')}m`,
+		expiresIn: `${accessTokenExpireIn}m`,
 	});
 
 	// Create refresh token
 	const refresh_token = signJwt({ user: user.id }, process.env.JWT_REFRESH_PRIVATE_KEY, {
-		expiresIn: `${config.get('jwtRefreshTokenExpiresIn')}m`,
+		expiresIn: `${refreshTokenExpireIn}m`,
 	});
 
 	return { access_token, refresh_token };

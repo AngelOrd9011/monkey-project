@@ -37,8 +37,9 @@ const Profile = ({ setPage, showToast }) => {
 		})
 			.then(() => {
 				refetch();
+			})
+			.then(() => {
 				setPhoto(null);
-				setInput({ ...profile });
 				showToast('success', 'OK!', 'Información actualizada exitosamente');
 			})
 			.catch((e) => {

@@ -1,11 +1,13 @@
 import AWS from 'aws-sdk';
+import dotenv from 'dotenv';
 
+dotenv.config();
 export const bucket = 'monkey';
 
 export const s3 = new AWS.S3({
-	endpoint: 'http://localhost:9000',
-	accessKeyId: 'admin',
-	secretAccessKey: 'password',
+	endpoint: process.env.MINIO_URI,
+	accessKeyId: process.env.MINIO_USER,
+	secretAccessKey: process.env.MINIO_PASSWORD,
 	sslEnabled: false,
 	s3ForcePathStyle: true,
 });
@@ -15,9 +17,9 @@ export const s3 = new AWS.S3({
 // export const bucket = 'monkey';
 
 // export const s3 = new S3({
-// 	endpoint: 'http://localhost:9000',
-// 	accessKeyId: 'admin',
-// 	secretAccessKey: 'password',
+// endpoint: process.env.MINIO_URI,
+// accessKeyId: process.env.MINIO_USER,
+// secretAccessKey: process.env.MINIO_PASSWORD,
 // 	sslEnabled: false,
 // 	s3ForcePathStyle: true,
 // });

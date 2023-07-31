@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Header from '../components/layouts/Header';
 import Footer from '../components/layouts/Footer';
 import useLocalStorage from '../hooks/useLocalStorage';
@@ -16,14 +17,22 @@ import { ErrorMessage } from '../components/layouts/ErrorMessage';
 const Shop = () => {
 	const [routeStored, setRouteStored] = useLocalStorage('MonkeyPage', 'home');
 	const { toast, showToast } = useToast();
-	const { loading, error } = useProfile();
-	const { refreshToken } = useAuthenticate();
+	const { loading, error, profile } = useProfile();
+	// const { refreshToken } = useAuthenticate();
+
+	// useEffect(() => {
+	// 	const verifyToken = setInterval(() => {
+	// 		if (profile) refreshToken();
+	// 	}, 5000);
+
+	// 	return () => clearInterval(verifyToken);
+	// }, [profile]);
 
 	if (loading) return <Loading />;
 	if (error && error === 'not-verified') return <ErrorMessage notVerified />;
 
 	return (
-		<div onMouseMove={() => refreshToken()}>
+		<>
 			<Header page={routeStored} setPage={setRouteStored} showToast={showToast} />
 			<Toast ref={toast} />
 			<main className="main-content">
@@ -38,7 +47,7 @@ const Shop = () => {
 				</div>
 			</main>
 			<Footer />
-		</div>
+		</>
 	);
 };
 

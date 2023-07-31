@@ -29,15 +29,8 @@ const useAuthenticate = () => {
 		return _authenticated;
 	}, [token]);
 
-	let stopped = null;
-
 	const refreshToken = () => {
-		clearTimeout(stopped);
-		if (authenticated) {
-			stopped = setTimeout(() => {
-				getToken().then(({ data }) => setToken(data.access_token));
-			}, 900000);
-		}
+		getToken().then(({ data }) => setToken(data.access_token));
 	};
 
 	const login = (email, password, showToast) => {

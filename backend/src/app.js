@@ -15,7 +15,7 @@ dotenv.config();
 validateEnv();
 
 const corsOptions = {
-	origin: ['http://localhost:3000', 'http://localhost', 'https://studio.apollographql.com'],
+	origin: [process.env.FRONTEND_URL, 'https://studio.apollographql.com'],
 };
 
 const init = async () => {
@@ -57,7 +57,7 @@ const init = async () => {
 		if (error) {
 			console.log(error);
 		} else {
-			console.log('SMTP transporter is ready');
+			console.log('SMTP transporter is ready: ' + process.env.SMTP_USER);
 		}
 	});
 };

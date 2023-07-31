@@ -7,7 +7,6 @@ FROM node:16-slim
 #directorio de trabajo
 WORKDIR /app
 # Copiar package.json y yarn.lock y codigo fuente e instalar dependencias NPM
-COPY ./config ./config
 COPY ./src ./src
 COPY ./package.json ./package.json
 COPY ./yarn.lock ./yarn.lock

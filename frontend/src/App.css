@@ -315,3 +315,13 @@ h1 {
 	border-radius: 15px;
 	padding: 1rem;
 }
+
+.action-btn {
+	color: #ef6c00 !important;
+}
+.p-datatable .p-datatable-tbody > tr > td .p-row-toggler,
+.p-datatable .p-datatable-tbody > tr > td .p-row-editor-init,
+.p-datatable .p-datatable-tbody > tr > td .p-row-editor-save,
+.p-datatable .p-datatable-tbody > tr > td .p-row-editor-cancel {
+	color: orangered !important;
+}

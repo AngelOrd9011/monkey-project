@@ -3,6 +3,9 @@ import validatorPkg from 'validator';
 const { isEmail } = validatorPkg;
 import bcryptjsPkg from 'bcryptjs';
 const { hash, compare } = bcryptjsPkg;
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const userSchema = new Schema(
 	{
@@ -35,7 +38,7 @@ const userSchema = new Schema(
 		},
 		photo: {
 			type: String,
-			default: 'http://localhost:9000/monkey/users/default.png',
+			default: `${process.env.MINIO_URI}/monkey/users/default.png`,
 		},
 		role: {
 			type: String,

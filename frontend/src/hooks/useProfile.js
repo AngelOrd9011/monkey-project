@@ -24,6 +24,7 @@ const useProfile = () => {
 			.then(({ data, loading }) => {
 				setLoading(loading);
 				dispatch(setProfile(data.getMe.user));
+				return data.getMe.user;
 			})
 			.catch((e) => {
 				setError(e);

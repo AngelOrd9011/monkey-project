@@ -4,7 +4,9 @@ import { createUploadStream } from '../config/upload/streams.js';
 import User from '../models/User.js';
 import mailerController from './mailer.controller.js';
 import { getAccessToken } from '../middleware/authUser.js';
+import dotenv from 'dotenv';
 
+dotenv.config();
 const getMe = async (_, args, { req, authUser }) => {
 	try {
 		await checkIsLoggedIn(req, authUser);
@@ -15,7 +17,7 @@ const getMe = async (_, args, { req, authUser }) => {
 			let access_token = getAccessToken(req);
 			let message = `<h2>¡Bienvenido!</h2>
 			<p>Para verificar tu usuario, ingresa al siguiente enlace:</p>
-			<a href='http://localhost:3000/${access_token}'>Verifica tu usuario AQUÍ</a>`;
+			<a href='${process.env.FRONTEND_URL}/${access_token}' target='_blank'>Verifica tu usuario AQUÍ</a>`;
 			let subject = 'Verificación de usuario';
 			let mail_address = user.email;
 			mailerController.sender(null, { mail_address, subject, message, contentHTML: true });

@@ -18,9 +18,9 @@ export const Loading = ({ verifying }) => {
 					setVerified(true);
 					setInterval(() => {
 						window.close();
-					}, 3000);
+					}, 2000);
 				})
-				.catch((e) => console.log(e));
+				.catch((e) => (window.location.href = '/'));
 		} else {
 			console.log('loading...');
 		}
