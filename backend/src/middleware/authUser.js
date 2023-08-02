@@ -6,7 +6,7 @@ import { verifyJwt } from '../utils/jwt.js';
 
 export const getAccessToken = (req) => {
 	// Get the access token
-	let access_token;
+	let access_token = null;
 	if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
 		access_token = req.headers.authorization.split(' ')[1];
 	} else if (req.cookies.access_token) {
@@ -34,19 +34,14 @@ export const checkSession = async (access_token) => {
 
 const authUser = async (req) => {
 	try {
-		let access_token = getAccessToken(req);
-
+		let access_token = await getAccessToken(req);
 		if (!access_token) return false;
-
 		let session = await checkSession(access_token);
-
 		// Check if user exist
 		const user = await User.findById(JSON.parse(session).id).select('+verified');
-
 		if (!user) {
 			throw new ForbiddenError('The user belonging to this token no logger exist');
 		}
-
 		return user;
 	} catch (error) {
 		errorHandler(error);

@@ -1,11 +1,10 @@
 import { Dialog } from 'primereact/dialog';
 import LoginForm from './LoginForm';
 import { Button } from 'primereact/button';
-import { useState } from 'react';
 import RegisterForm from './RegisterForm';
 
-export const LoginDialog = ({ show, onHide, showToast }) => {
-	const [register, setRegister] = useState(false);
+export const LoginDialog = ({ show, onHide, showToast, register, setRegister }) => {
+	
 	return (
 		<Dialog visible={show} onHide={onHide} style={{ width: '25vw' }} breakpoints={{ '960px': '75vw', '641px': '100vw' }}>
 			{!register ? (

@@ -1,8 +1,8 @@
 const Cart = () => {
 	return (
-		<div className="page-content">
-			<h1>Mi carrito de compra</h1>
-		</div>
+		<section className="page-content">
+			<h1>Carrito de compras</h1>
+		</section>
 	);
 };
 

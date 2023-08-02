@@ -1,12 +1,12 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
-import Shop from './pages/Shop';
-import Admin from './pages/Admin';
+import ShopWrapper from './ShopWrapper';
+import AdminWrapper from './AdminWrapper';
 import { ErrorMessage } from './components/layouts/ErrorMessage';
 import Login from './components/login/Login';
 import useAuthenticate from './hooks/useAuthenticate';
-import { Loading } from './components/layouts/Loading';
+import { VerifyingUser } from './components/layouts/VerifyingUser';
 
 const App = () => {
 	const { authenticated } = useAuthenticate();
@@ -18,15 +18,15 @@ const App = () => {
 		},
 		{
 			path: '/',
-			element: <Shop />,
+			element: <ShopWrapper />,
 		},
 		{
 			path: '/:token',
-			element: <Loading verifying />,
+			element: <VerifyingUser />,
 		},
 		{
 			path: 'admin-console',
-			element: authenticated ? <Admin /> : <Login />,
+			element: authenticated ? <AdminWrapper /> : <Login />,
 		},
 	]);
 

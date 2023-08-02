@@ -2,13 +2,29 @@ import errorHandler from './error.controller.js';
 import checkIsLoggedIn from '../middleware/checkIsLoggedIn.js';
 import Product from '../models/Product.js';
 
-const getProducts = async (_, { id }) => {
+const getProducts = async (_, { id, category, newProducts }, { req, authUser }) => {
 	try {
+		let products;
 		if (id) {
 			let product = await Product.findById(id);
 			return product;
 		}
-		let products = await Product.find();
+		if (category && category !== 'ALL') {
+			products = await Product.find({ category, items: { $exists: true, $ne: [] } }).sort({ createdAt: 'desc' });
+			return products;
+		}
+		if (category && category === 'ALL') {
+			products = await Product.find({ items: { $exists: true, $ne: [] } }).sort({ createdAt: 'desc' });
+			return products;
+		}
+		if (newProducts) {
+			products = await Product.find({ items: { $exists: true, $ne: [] } })
+				.sort({ createdAt: 'desc' })
+				.limit(9);
+			return products;
+		}
+		await checkIsLoggedIn(req, authUser);
+		products = await Product.find().sort({ createdAt: 'desc' });
 		return products;
 	} catch (error) {
 		errorHandler(error);

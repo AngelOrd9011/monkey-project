@@ -4,6 +4,8 @@ const productsResolvers = {
 	Query: {
 		getAllProducts: productsController.getProducts,
 		getProduct: productsController.getProducts,
+		getProductsByCategory: productsController.getProducts,
+		getNewProducts: productsController.getProducts,
 	},
 	Mutation: {
 		addProduct: productsController.addProduct,

@@ -134,20 +134,20 @@ h1 {
 }
 
 .p-card {
-	background-color: #ef6c00 !important;
+	background-color: rgba(239, 108, 0, 0.8) !important;
 	color: #fff !important;
 	position: relative;
 	width: 90% !important;
 }
 .p-card-title {
 	position: absolute;
-	background: #000;
-	opacity: 0.8;
+	background: rgba(167, 255, 235, 0.4);
 	padding: 4px 15px !important;
 	left: 0;
 	top: 15rem;
 	border-radius: 0 20px 20px 0;
-	font-weight: 300 !important;
+	font-weight: 450 !important;
+	text-shadow: 1px 1px 2px black, 0 0 0.5em #9c27b0, 0 0 0.2em #9c27b0;
 }
 
 .p-card-subtitle {
@@ -157,14 +157,16 @@ h1 {
 	font-weight: 600 !important;
 	margin-top: 0.5rem !important;
 	width: 90% !important;
+	overflow: hidden !important;
+	white-space: nowrap !important;
+	text-overflow: ellipsis !important;
 }
 
 .p-card-content {
 	margin-top: 2rem !important;
 }
-
-.p-card-body {
-	height: 12rem;
+.p-card .p-card-content {
+	padding: 1.25rem 0 0.5rem 0 !important;
 }
 
 .p-card-header img {
@@ -190,6 +192,11 @@ h1 {
 .product-card-btn {
 	float: right !important;
 	background-color: #9c27b0 !important;
+}
+
+.product-carousel-btn {
+	background-color: #a7ffeb !important;
+	color: #9c27b0 !important;
 }
 
 .p-dialog-content,
@@ -324,4 +331,62 @@ h1 {
 .p-datatable .p-datatable-tbody > tr > td .p-row-editor-save,
 .p-datatable .p-datatable-tbody > tr > td .p-row-editor-cancel {
 	color: orangered !important;
+}
+
+.product-abstract {
+	height: 4rem;
+	overflow: hidden;
+	white-space: initial;
+	text-overflow: ellipsis;
+}
+.p-tooltip-text {
+	background-color: #704cb6 !important;
+}
+
+.p-button:hover {
+	transform: scale(1.1) !important;
+}
+
+.carousel-product {
+	background-color: rgba(239, 108, 0, 0.8) !important;
+	color: #fff !important;
+	border: solid 2px #9c27b0 !important;
+	margin: 2rem;
+}
+
+.p-carousel .p-carousel-content .p-carousel-prev,
+.p-carousel .p-carousel-content .p-carousel-next {
+	color: orangered !important;
+	font-size: 3rem !important;
+}
+
+.card {
+	padding: 1rem 0;
+}
+
+.carousel-products {
+	margin: 3rem 0;
+}
+
+.p-rating .p-rating-item.p-rating-item-active .p-rating-icon {
+	color: #9c27b0 !important;
+}
+
+.p-rating .p-rating-item .p-rating-icon {
+	color: #9c27b0 !important;
+}
+
+.contact-container {
+	background-color: rgba(239, 108, 0, 0.8) !important;
+	margin-bottom: 5rem !important;
+	min-height: 55vh;
+}
+
+.contact {
+	text-align: center;
+}
+.contact p {
+	font-size: 1.5rem;
+	color: #9c27b0;
+	font-weight: 600 !important;
 }

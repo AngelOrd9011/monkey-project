@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Header = ({ page, setPage, showToast }) => {
 	const [show, setShow] = useState(false);
+	const [register, setRegister] = useState(false);
 	const { authenticated, logout } = useAuthenticate();
 	const { profile } = useProfile();
 	const location = useLocation();
@@ -17,6 +18,7 @@ const Header = ({ page, setPage, showToast }) => {
 
 	const onHide = () => {
 		setShow(false);
+		setRegister(false);
 	};
 
 	const shopItems = [
@@ -36,20 +38,20 @@ const Header = ({ page, setPage, showToast }) => {
 			items: [
 				{
 					label: 'Damas',
-					command: () => setPage('female'),
+					command: () => setPage('FEMALE'),
 				},
 				{
 					label: 'Caballeros',
-					command: () => setPage('male'),
+					command: () => setPage('MALE'),
 				},
 				{
 					label: 'Todo',
-					command: () => setPage('all'),
+					command: () => setPage('ALL'),
 				},
 			],
 		},
 		{
-			label: 'Carrito de compra',
+			label: 'Carrito de compras',
 			icon: 'pi pi-shopping-cart',
 			command: () => setPage('cart'),
 		},
@@ -120,7 +122,7 @@ const Header = ({ page, setPage, showToast }) => {
 				</div>
 				{(page === 'home' || page === 'contact') && <div className="image-cover"></div>}
 			</header>
-			<LoginDialog show={show} onHide={onHide} showToast={showToast} />
+			<LoginDialog show={show} onHide={onHide} showToast={showToast} register={register} setRegister={setRegister} />
 		</>
 	);
 };

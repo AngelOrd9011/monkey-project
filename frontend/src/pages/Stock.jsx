@@ -7,10 +7,11 @@ import { Loading } from '../components/layouts/Loading';
 import { ErrorMessage } from '../components/layouts/ErrorMessage';
 import { Tag } from 'primereact/tag';
 import logo from '../assets/images/logo-orange.png';
-import { Button } from 'primereact/button';
-
+import useProfile from '../hooks/useProfile';
+import { ProductPanel } from '../components/stock/ProductPanel';
 const Stock = () => {
-	const { data, loading, error } = useQuery(QUERY_GET_ALL_PRODUCTS);
+	const { headers } = useProfile();
+	const { data, loading, error } = useQuery(QUERY_GET_ALL_PRODUCTS, { context: { ...headers } });
 	const [expandedRows, setExpandedRows] = useState(null);
 
 	const imageBodyTemplate = (product) => {
@@ -23,19 +24,24 @@ const Stock = () => {
 
 	const stockTemplate = (product) => {
 		let count = 0;
-		product.items.forEach((item) => (count += item.stock));
-		return <Tag value={count + ' UNIDADES'} severity={getProductSeverity(product, count)} />;
+		if (product.items && product.items.length > 0) {
+			product.items.forEach((item) => {
+				count += item.stock;
+			});
+		}
+		console.log(count);
+		return <Tag value={count + ' UNIDADES'} severity={getProductSeverity(count)} />;
 	};
 
-	const getProductSeverity = (product, count) => {
+	const getProductSeverity = (count) => {
 		switch (true) {
 			case count >= 10:
 				return 'success';
 
-			case count < 10:
+			case count < 10 && count >= 1:
 				return 'warning';
 
-			case count <= 0:
+			case count === 0:
 				return 'danger';
 
 			default:
@@ -43,21 +49,8 @@ const Stock = () => {
 		}
 	};
 
-	const rowExpansionTemplate = (data) => {
-		return (
-			<>
-				<h3>Producto: {data.name}</h3>
-				<ul>
-					{data.items.map((item, index) => (
-						<li key={data.name + '-' + index}>{item.color}</li>
-					))}
-				</ul>
-			</>
-		);
-	};
-
-	const allowExpansion = (product) => {
-		return product.items.length > 0;
+	const productPanelTemplate = (product) => {
+		return <ProductPanel product={product} />;
 	};
 
 	if (loading) return <Loading />;
@@ -72,9 +65,9 @@ const Stock = () => {
 					tableStyle={{ minWidth: '50rem' }}
 					expandedRows={expandedRows}
 					onRowToggle={(e) => setExpandedRows(e.data)}
-					rowExpansionTemplate={rowExpansionTemplate}
+					rowExpansionTemplate={productPanelTemplate}
 				>
-					<Column expander={allowExpansion} style={{ width: '5rem' }} />
+					<Column expander={true} style={{ width: '5rem' }} />
 					<Column field="name" header="Nombre" />
 					<Column body={imageBodyTemplate} header="Imagen" />
 					<Column field="category" header="Categoría" />

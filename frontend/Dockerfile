@@ -10,6 +10,9 @@ ENV REACT_APP_MINIO_URI=$MINIO_URI
 ARG GRAPHQL_URI
 ENV REACT_APP_GRAPHQL_URI=$GRAPHQL_URI
 
+ARG MAPS_API_KEY
+ENV REACT_APP_MAPS_API_KEY = $MAPS_API_KEY
+
 # Copiar package.json y package-lock.json e instalar dependencias
 WORKDIR /app
 COPY package.json yarn.lock ./

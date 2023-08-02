@@ -51,8 +51,8 @@ const Profile = ({ setPage, showToast }) => {
 	return (
 		<div className="page-content">
 			<h1>Mi perfil</h1>
-			<div className="grid">
-				<div className="col-12 md:col-3">
+			<section className="grid">
+				<aside className="col-12 md:col-3">
 					<ProfilePicture
 						input={input}
 						setInput={setInput}
@@ -61,13 +61,13 @@ const Profile = ({ setPage, showToast }) => {
 						fileUploadRef={fileUploadRef}
 						cancelUpload={cancelUpload}
 					/>
-				</div>
+				</aside>
 				<div className="col-12 md:col-9" style={{ padding: '1rem' }}>
 					<div className="personal-data-container">
 						<Button label="Guardar" className="p-button-rounded" onClick={() => saveUserChanges()} disabled={disabled} />
 					</div>
 				</div>
-			</div>
+			</section>
 		</div>
 	);
 };

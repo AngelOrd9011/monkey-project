@@ -13,7 +13,7 @@ const productsTypeDefs = gql`
 	}
 
 	type ProductImage {
-		primary: String
+		primary: Boolean
 		url: String
 		alt: String
 	}
@@ -29,13 +29,13 @@ const productsTypeDefs = gql`
 	input ProductInput {
 		name: String
 		description: String
-		images: String
+		images: [ProductImageInput]
 		category: String
 		price: Float
 	}
 
 	input ProductImageInput {
-		primary: String
+		primary: Boolean
 		url: String
 		alt: String
 	}
@@ -49,7 +49,9 @@ const productsTypeDefs = gql`
 	# Queries
 	extend type Query {
 		getAllProducts: [Product]
-		getProduct(id: ID): Product
+		getProductsByCategory(category: String!): [Product]
+		getProduct(id: ID!): Product
+		getNewProducts(newProducts: Boolean!): [Product]
 	}
 
 	# Mutations

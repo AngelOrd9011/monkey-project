@@ -11,12 +11,9 @@ const useProfile = () => {
 	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [token] = useSessionStorage('token', '');
+	const headers = { headers: { Authorization: `Bearer ${token}` } };
 	const [loadProfile, { refetch: profileRefetch }] = useLazyQuery(QUERY_USER_PROFILE, {
-		context: {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		},
+		context: { ...headers },
 	});
 
 	const refetch = async () => {
@@ -46,7 +43,7 @@ const useProfile = () => {
 			});
 	}, [loadProfile, dispatch]);
 
-	return { profile, loading, error, refetch, token };
+	return { profile, loading, error, refetch, token, headers };
 };
 
 export default useProfile;
