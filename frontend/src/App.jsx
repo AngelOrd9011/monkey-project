@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './App.css';
+import './styles/global-app.css';
 import ShopWrapper from './ShopWrapper';
 import AdminWrapper from './AdminWrapper';
 import { ErrorMessage } from './components/layouts/ErrorMessage';

@@ -1,17 +1,16 @@
 import { useLazyQuery } from '@apollo/client';
 import { QUERY_USER_PROFILE } from '../apollo/queries';
-import useSessionStorage from './useSessionStorage';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setProfile, getProfile } from '../features/profile/profileSlice';
+import useAuthenticate from './useAuthenticate';
 
 const useProfile = () => {
 	const profile = useSelector(getProfile);
 	const dispatch = useDispatch();
 	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(false);
-	const [token] = useSessionStorage('token', '');
-	const headers = { headers: { Authorization: `Bearer ${token}` } };
+	const { headers } = useAuthenticate();
 	const [loadProfile, { refetch: profileRefetch }] = useLazyQuery(QUERY_USER_PROFILE, {
 		context: { ...headers },
 	});
@@ -43,7 +42,7 @@ const useProfile = () => {
 			});
 	}, [loadProfile, dispatch]);
 
-	return { profile, loading, error, refetch, token, headers };
+	return { profile, loading, error, refetch };
 };
 
 export default useProfile;

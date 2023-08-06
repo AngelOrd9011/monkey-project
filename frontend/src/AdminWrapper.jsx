@@ -8,7 +8,7 @@ import Profile from './pages/Profile';
 import { ADMIN_ROLE, PAGES } from './app/constants';
 
 const AdminWrapper = () => {
-	const [routeStored, setRouteStored] = useLocalStorage('MonkeyConsole', PAGES.stock);
+	const [routeStored, setRouteStored] = useLocalStorage('MonkeyPage', PAGES.stock);
 	const { profile, loading } = useProfile();
 
 	if (loading) return <Loading />;

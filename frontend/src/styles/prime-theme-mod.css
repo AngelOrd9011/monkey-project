@@ -1,0 +1,144 @@
+.p-menuitem-text,
+.p-menuitem-icon,
+.p-menubar-button {
+	color: #ef6c00 !important;
+	font-weight: bold !important;
+}
+
+.p-menubar .p-menubar-root-list > .p-menuitem > .p-menuitem-link .p-submenu-icon {
+	color: #ef6c00 !important;
+	font-weight: bold !important;
+}
+
+.p-submenu-list,
+.p-menubar-root-list {
+	background-color: #a7ffeb !important;
+}
+
+.p-card {
+	background-color: rgba(239, 108, 0, 0.8) !important;
+	color: #fff !important;
+	position: relative;
+	width: 90% !important;
+}
+.p-card-title {
+	position: absolute;
+	background: rgba(167, 255, 235, 0.4);
+	padding: 4px 15px !important;
+	left: 0;
+	top: 15rem;
+	border-radius: 0 20px 20px 0;
+	font-weight: 450 !important;
+	text-shadow: 1px 1px 2px black, 0 0 0.5em #9c27b0, 0 0 0.2em #9c27b0;
+}
+
+.p-card-subtitle {
+	position: absolute;
+	color: #9c27b0 !important;
+	font-size: x-large;
+	font-weight: 600 !important;
+	margin-top: 0.5rem !important;
+	width: 90% !important;
+	overflow: hidden !important;
+	white-space: nowrap !important;
+	text-overflow: ellipsis !important;
+}
+
+.p-card-content {
+	margin-top: 2rem !important;
+}
+.p-card .p-card-content {
+	padding: 1.25rem 0 0.5rem 0 !important;
+}
+
+.p-card-header img {
+	width: 100%;
+	height: 100%;
+}
+
+.p-card-header {
+	background-size: cover;
+	height: 300px;
+	background-color: rgb(112, 76, 182);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.p-dialog-content,
+.p-dialog-header,
+.p-dialog-header-close {
+	background-color: #704cb6 !important;
+	color: #fff !important;
+	/* border: solid 1px #a7ffeb !important; */
+}
+
+.p-dialog {
+	width: 50%;
+}
+
+.p-inputgroup-addon {
+	background-color: #a7ffeb !important;
+	color: #ef6c00 !important;
+	border: solid 1px #ef6c00 !important;
+}
+
+.p-inputtext {
+	background-color: #e1bee7 !important;
+	border: solid 1px #ef6c00 !important;
+	font-weight: 500 !important;
+	letter-spacing: 1px !important;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+	color: #fff !important;
+	background-color: #ef6c00 !important;
+}
+
+.p-datatable .p-datatable-tbody > tr {
+	background-color: #704cb6 !important;
+	color: #fff !important;
+}
+
+.p-datatable .p-datatable-tbody > tr > td .p-row-toggler,
+.p-datatable .p-datatable-tbody > tr > td .p-row-editor-init,
+.p-datatable .p-datatable-tbody > tr > td .p-row-editor-save,
+.p-datatable .p-datatable-tbody > tr > td .p-row-editor-cancel {
+	color: orangered !important;
+}
+
+.p-tooltip-text {
+	background-color: #704cb6 !important;
+}
+
+.p-button:hover {
+	transform: scale(1.1) !important;
+}
+
+.p-carousel .p-carousel-content .p-carousel-prev,
+.p-carousel .p-carousel-content .p-carousel-next {
+	color: orangered !important;
+	font-size: 3rem !important;
+}
+
+.p-rating .p-rating-item.p-rating-item-active .p-rating-icon {
+	color: #9c27b0 !important;
+}
+
+.p-rating .p-rating-item .p-rating-icon {
+	color: #9c27b0 !important;
+}
+
+.p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
+	background-color: #9c27b0 !important;
+}
+
+.p-carousel .p-carousel-indicators .p-carousel-indicator button {
+	background-color: #a7ffeb !important;
+}
+@media (max-width: 1000px) {
+	.p-dialog {
+		width: 90% !important;
+	}
+}

@@ -10,10 +10,10 @@ const MapMarker = ({ text }) => (
 export const ContactMap = () => {
 	const defaultProps = {
 		center: {
-			lat: 19.2715141,
-			lng: -98.89061,
+			lat: 19.26029,
+			lng: -98.94069,
 		},
-		zoom: 18,
+		zoom: 16,
 	};
 
 	return (
@@ -23,7 +23,7 @@ export const ContactMap = () => {
 				defaultCenter={defaultProps.center}
 				defaultZoom={defaultProps.zoom}
 			>
-				<MapMarker lat={19.2715141} lng={-98.89061} text="Monkey" />
+				<MapMarker lat={19.26029} lng={-98.94069} text="Monkey" />
 			</GoogleMapReact>
 		</div>
 	);

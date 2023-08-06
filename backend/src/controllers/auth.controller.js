@@ -10,7 +10,7 @@ const accessTokenExpireIn = 20;
 const refreshTokenExpireIn = 60;
 
 const cookieOptions = {
-	httpOnly: true,
+	httpOnly: false,
 	// domain: 'localhost',
 	sameSite: 'none',
 	secure: true,

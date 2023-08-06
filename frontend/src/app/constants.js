@@ -4,7 +4,7 @@ export const CATEGORIES = {
 	ALL: 'Catálogo',
 };
 
-export const REFRESH_TOKEN_INTERVAL = 18 * 60 * 1000;
+export const REFRESH_TOKEN_INTERVAL = 15 * 60 * 1000;
 
 export const PAGES = {
 	home: 'home',

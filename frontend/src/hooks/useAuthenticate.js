@@ -1,44 +1,39 @@
 import { useMemo } from 'react';
-import useSessionStorage from './useSessionStorage';
+import useSessionCookies from './useSessionCookies';
 import { useMutation, useLazyQuery } from '@apollo/client';
 import { MUTATION_LOGIN, MUTATION_SING_UP } from '../apollo/mutations';
 import { QUERY_LOGOUT, QUERY_REFRESH_TOKEN } from '../apollo/queries';
-import Cookies from 'js-cookie';
 
 const useAuthenticate = () => {
-	const [token, setToken] = useSessionStorage('token', '');
+	const { token, logged_in } = useSessionCookies();
+
+	const headers = useMemo(() => {
+		let _headers = { headers: { Authorization: `Bearer ${token}` } };
+		return _headers;
+	}, [token]);
+
 	const [auth] = useMutation(MUTATION_LOGIN);
 	const [sing] = useMutation(MUTATION_SING_UP);
 	const [out] = useLazyQuery(QUERY_LOGOUT, {
-		context: {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		},
+		context: { ...headers },
 	});
 	const [getToken] = useLazyQuery(QUERY_REFRESH_TOKEN, {
-		context: {
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		},
+		context: { ...headers },
 	});
 
 	const authenticated = useMemo(() => {
 		let _authenticated = false;
-		let logged_in = Cookies.get('logged_in');
-		if (token && logged_in) _authenticated = true;
+		if (logged_in) _authenticated = true;
 		return _authenticated;
-	}, [token]);
+	}, []);
 
 	const refreshToken = () => {
-		getToken().then(({ data }) => setToken(data.access_token));
+		getToken();
 	};
 
 	const login = (email, password, showToast) => {
 		auth({ variables: { input: { email, password } } })
 			.then(({ data }) => {
-				setToken(data.loginUser.access_token);
 				window.location.reload();
 			})
 			.catch((e) => {
@@ -50,8 +45,6 @@ const useAuthenticate = () => {
 	const logout = () => {
 		out()
 			.then(() => {
-				setToken(null);
-				window.sessionStorage.clear();
 				window.location.reload();
 			})
 			.catch((e) => console.log(e));
@@ -76,6 +69,7 @@ const useAuthenticate = () => {
 		login,
 		logout,
 		singUp,
+		headers,
 	};
 };
 

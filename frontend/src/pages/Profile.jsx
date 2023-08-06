@@ -4,6 +4,7 @@ import useProfile from '../hooks/useProfile';
 import { ProfilePicture } from '../components/profile/ProfilePicture';
 import { useMutation } from '@apollo/client';
 import { MUTATION_UPDATE_USER } from '../apollo/mutations';
+import { PAGES } from '../app/constants';
 
 const Profile = ({ setPage, showToast }) => {
 	const fileUploadRef = useRef(null);
