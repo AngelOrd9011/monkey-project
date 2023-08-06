@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import Header from './components/layouts/Header';
 import Footer from './components/layouts/Footer';
 import useLocalStorage from './hooks/useLocalStorage';
@@ -11,27 +10,15 @@ import useToast from './hooks/useToast';
 import useProfile from './hooks/useProfile';
 import { Loading } from './components/layouts/Loading';
 import Profile from './pages/Profile';
-// import useAuthenticate from './hooks/useAuthenticate';
 import { ErrorMessage } from './components/layouts/ErrorMessage';
-import { categories } from './app/constants';
+import { CATEGORIES, PAGES } from './app/constants';
 
 const ShopWrapper = () => {
-	const [routeStored, setRouteStored] = useLocalStorage('MonkeyPage', 'home');
+	const [routeStored, setRouteStored] = useLocalStorage('MonkeyPage', PAGES.home);
 	const { toast, showToast } = useToast();
 	const { loading, error } = useProfile();
-	// const { refreshToken } = useAuthenticate();
 
-	// useEffect(() => {
-	// 	const verifyToken = setInterval(() => {
-	// 		if (profile) refreshToken();
-	// 	}, 5000);
-
-	// 	return () => clearInterval(verifyToken);
-	// }, [profile]);
-
-	const catalogs = useMemo(() => {
-		return Object.keys(categories);
-	}, []);
+	const catalogs = Object.keys(CATEGORIES);
 
 	if (loading) return <Loading />;
 	if (error && error === 'not-verified') return <ErrorMessage notVerified />;
@@ -43,11 +30,11 @@ const ShopWrapper = () => {
 			<main className="main-content">
 				<div className="grid">
 					<div className="col-12 md:col-10 md:col-offset-1 lg:col-10 lg:col-offset-1 xl:col-8 xl:col-offset-2">
-						{routeStored === 'home' && <Home />}
-						{routeStored === 'contact' && <Contact />}
+						{routeStored === PAGES.home && <Home />}
+						{routeStored === PAGES.contact && <Contact />}
 						{catalogs.includes(routeStored) && <Catalog category={routeStored} />}
-						{routeStored === 'cart' && <Cart />}
-						{routeStored === 'profile' && <Profile setPage={setRouteStored} showToast={showToast} />}
+						{routeStored === PAGES.cart && <Cart />}
+						{routeStored === PAGES.profile && <Profile setPage={setRouteStored} showToast={showToast} />}
 					</div>
 				</div>
 			</main>

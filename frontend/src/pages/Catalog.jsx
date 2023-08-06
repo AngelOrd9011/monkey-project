@@ -3,7 +3,7 @@ import { QUERY_GET_PRODUCTS_BY_CATEGORY } from '../apollo/queries';
 import { Loading } from '../components/layouts/Loading';
 import { ProductCard } from '../components/products/ProductCard';
 import { ErrorMessage } from '../components/layouts/ErrorMessage';
-import { categories } from '../app/constants';
+import { CATEGORIES } from '../app/constants';
 
 const Catalog = ({ category }) => {
 	const { data, loading, error } = useQuery(QUERY_GET_PRODUCTS_BY_CATEGORY, { variables: { category } });
@@ -13,7 +13,7 @@ const Catalog = ({ category }) => {
 
 	return (
 		<div className="page-content">
-			<h1>{categories[category]}</h1>
+			<h1>{CATEGORIES[category]}</h1>
 			<section className="grid">
 				{data &&
 					data?.products.map((item) => {

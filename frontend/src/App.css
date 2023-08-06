@@ -390,3 +390,11 @@ h1 {
 	color: #9c27b0;
 	font-weight: 600 !important;
 }
+
+.p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
+	background-color: #9c27b0 !important;
+}
+
+.p-carousel .p-carousel-indicators .p-carousel-indicator button {
+	background-color: #a7ffeb !important;
+}

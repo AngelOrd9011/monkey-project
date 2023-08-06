@@ -1,6 +1,7 @@
 import errorHandler from './error.controller.js';
 import checkIsLoggedIn from '../middleware/checkIsLoggedIn.js';
 import Product from '../models/Product.js';
+import { ADMIN_ROLE } from '../utils/constants.js';
 
 const getProducts = async (_, { id, category, newProducts }, { req, authUser }) => {
 	try {
@@ -34,7 +35,7 @@ const getProducts = async (_, { id, category, newProducts }, { req, authUser }) 
 const addProduct = async (_, { product }, { req, authUser }) => {
 	try {
 		const role = await checkIsLoggedIn(req, authUser);
-		if (role === 'admin') {
+		if (role === ADMIN_ROLE) {
 			const { name, description, category, price, images } = product;
 			const newProduct = new Product({ name, description, category, price, images });
 			await newProduct.save();

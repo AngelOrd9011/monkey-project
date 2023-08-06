@@ -7,6 +7,7 @@ import useAuthenticate from '../../hooks/useAuthenticate';
 import useProfile from '../../hooks/useProfile';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { CATEGORIES, PAGES } from '../../app/constants';
 
 const Header = ({ page, setPage, showToast }) => {
 	const [show, setShow] = useState(false);
@@ -21,16 +22,18 @@ const Header = ({ page, setPage, showToast }) => {
 		setRegister(false);
 	};
 
+	const catalogs = Object.keys(CATEGORIES);
+
 	const shopItems = [
 		{
 			label: 'Inicio',
 			icon: 'pi pi-home',
-			command: () => setPage('home'),
+			command: () => setPage(PAGES.home),
 		},
 		{
 			label: 'Conócenos',
 			icon: 'pi pi-users',
-			command: () => setPage('contact'),
+			command: () => setPage(PAGES.contact),
 		},
 		{
 			label: 'Catálogos',
@@ -38,22 +41,22 @@ const Header = ({ page, setPage, showToast }) => {
 			items: [
 				{
 					label: 'Damas',
-					command: () => setPage('FEMALE'),
+					command: () => setPage(catalogs[0]),
 				},
 				{
 					label: 'Caballeros',
-					command: () => setPage('MALE'),
+					command: () => setPage(catalogs[1]),
 				},
 				{
 					label: 'Todo',
-					command: () => setPage('ALL'),
+					command: () => setPage(catalogs[2]),
 				},
 			],
 		},
 		{
 			label: 'Carrito de compras',
 			icon: 'pi pi-shopping-cart',
-			command: () => setPage('cart'),
+			command: () => setPage(PAGES.cart),
 		},
 	];
 
@@ -61,17 +64,17 @@ const Header = ({ page, setPage, showToast }) => {
 		{
 			label: 'Inventario',
 			icon: 'pi pi-database',
-			command: () => setPage('stock'),
+			command: () => setPage(PAGES.stock),
 		},
 		{
 			label: 'Gestión de usuarios',
 			icon: 'pi pi-users',
-			command: () => setPage('users'),
+			command: () => setPage(PAGES.users),
 		},
 		{
 			label: 'Dashboard',
 			icon: 'pi pi-chart-line',
-			command: () => setPage('dashboard'),
+			command: () => setPage(PAGES.dashboard),
 		},
 		{
 			label: 'Ir a la tienda',
@@ -97,13 +100,13 @@ const Header = ({ page, setPage, showToast }) => {
 			menu.push({
 				label: nameTemplate(),
 				items: [
-					{ label: 'Mi perfil', icon: 'pi pi-user', command: () => setPage('profile') },
+					{ label: 'Mi perfil', icon: 'pi pi-user', command: () => setPage(PAGES.profile) },
 					{
 						label: 'Cerrar sesión',
 						icon: 'pi pi-sign-out',
 						command: () => {
 							logout();
-							setPage('home');
+							setPage(PAGES.home);
 						},
 					},
 				],
@@ -120,7 +123,7 @@ const Header = ({ page, setPage, showToast }) => {
 				<div className="app-header">
 					<Menubar className="menu-header" model={menu()} end={img} />
 				</div>
-				{(page === 'home' || page === 'contact') && <div className="image-cover"></div>}
+				{(page === PAGES.home || page === PAGES.contact) && <div className="image-cover"></div>}
 			</header>
 			<LoginDialog show={show} onHide={onHide} showToast={showToast} register={register} setRegister={setRegister} />
 		</>

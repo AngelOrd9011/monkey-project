@@ -1,13 +1,14 @@
 import { useMemo } from 'react';
 import useSessionStorage from './useSessionStorage';
 import { useMutation, useLazyQuery } from '@apollo/client';
-import { MUTATION_LOGIN, MUTATION_SINGUP } from '../apollo/mutations';
+import { MUTATION_LOGIN, MUTATION_SING_UP } from '../apollo/mutations';
 import { QUERY_LOGOUT, QUERY_REFRESH_TOKEN } from '../apollo/queries';
+import Cookies from 'js-cookie';
 
 const useAuthenticate = () => {
 	const [token, setToken] = useSessionStorage('token', '');
 	const [auth] = useMutation(MUTATION_LOGIN);
-	const [sing] = useMutation(MUTATION_SINGUP);
+	const [sing] = useMutation(MUTATION_SING_UP);
 	const [out] = useLazyQuery(QUERY_LOGOUT, {
 		context: {
 			headers: {
@@ -25,7 +26,8 @@ const useAuthenticate = () => {
 
 	const authenticated = useMemo(() => {
 		let _authenticated = false;
-		if (token) _authenticated = true;
+		let logged_in = Cookies.get('logged_in');
+		if (token && logged_in) _authenticated = true;
 		return _authenticated;
 	}, [token]);
 

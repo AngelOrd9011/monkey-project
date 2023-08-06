@@ -6,12 +6,12 @@ import { signJwt, verifyJwt } from '../utils/jwt.js';
 import errorHandler from './error.controller.js';
 import { checkSession } from '../middleware/authUser.js';
 
-const accessTokenExpireIn = 60;
+const accessTokenExpireIn = 20;
 const refreshTokenExpireIn = 60;
 
 const cookieOptions = {
 	httpOnly: true,
-	domain: 'localhost:3000',
+	// domain: 'localhost',
 	sameSite: 'none',
 	secure: true,
 };
@@ -62,7 +62,7 @@ async function signTokens(user) {
 	});
 
 	// Create refresh token
-	const refresh_token = signJwt({ user: user.id }, process.env.JWT_REFRESH_PRIVATE_KEY, {
+	const refresh_token = signJwt({ user: user.id }, process.env.JWT_ACCESS_PRIVATE_KEY, {
 		expiresIn: `${refreshTokenExpireIn}m`,
 	});
 
@@ -96,7 +96,6 @@ const login = async (_, { input: { email, password } }, { req, res }) => {
 			access_token,
 		};
 	} catch (error) {
-		console.log(error);
 		errorHandler(error);
 	}
 };
@@ -104,10 +103,10 @@ const login = async (_, { input: { email, password } }, { req, res }) => {
 const refreshAccessToken = async (_, args, { req, res }) => {
 	try {
 		// Get the refresh token
-		const { refresh_token } = req.cookies;
+		let refresh_token = req.headers.cookie.split('=')[1].split(';')[0];
 
 		// Validate the RefreshToken
-		const decoded = verifyJwt(refresh_token, process.env.JWT_REFRESH_PUBLIC_KEY);
+		const decoded = verifyJwt(refresh_token, process.env.JWT_ACCESS_PUBLIC_KEY);
 
 		if (!decoded) {
 			throw new ForbiddenError('Could not refresh access token');
@@ -129,7 +128,7 @@ const refreshAccessToken = async (_, args, { req, res }) => {
 
 		// Sign new access token
 		const access_token = signJwt({ user: user._id }, process.env.JWT_ACCESS_PRIVATE_KEY, {
-			expiresIn: get('jwtAccessTokenExpiresIn'),
+			expiresIn: `${accessTokenExpireIn}m`,
 		});
 
 		// Send access token cookie
@@ -164,7 +163,6 @@ const logoutHandler = async (_, args, { req, res, authUser }) => {
 
 		return true;
 	} catch (error) {
-		console.log(error);
 		errorHandler(error);
 	}
 };

@@ -8,7 +8,6 @@ import typeDefs from './schema/schema.js';
 import connectDB from './config/database/connectDB.js';
 import authUser from './middleware/authUser.js';
 import validateEnv from './utils/validateEnv.js';
-import cors from 'cors';
 import { transporter } from './config/smtp/SMTPtransporter.js';
 
 dotenv.config();
@@ -16,6 +15,7 @@ validateEnv();
 
 const corsOptions = {
 	origin: [process.env.FRONTEND_URL, 'https://studio.apollographql.com'],
+	credentials: true,
 };
 
 const init = async () => {
@@ -35,13 +35,9 @@ const init = async () => {
 
 	const app = express();
 
-	app.use(cors(corsOptions));
-
 	app.use(graphqlUploadExpress());
 
-	connectDB();
-
-	apolloServer.applyMiddleware({ app, path: '/v1/api' });
+	apolloServer.applyMiddleware({ app, path: '/v1/api', cors: corsOptions });
 
 	app.get('/', (_req, res) => {
 		res.send('GraphQL API is alive!');
@@ -52,6 +48,8 @@ const init = async () => {
 	});
 
 	app.listen(process.env.PORT, () => console.log('Server on port', process.env.PORT));
+
+	connectDB();
 
 	transporter.verify(function (error) {
 		if (error) {

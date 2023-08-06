@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
 import ShopWrapper from './ShopWrapper';
@@ -7,9 +7,17 @@ import { ErrorMessage } from './components/layouts/ErrorMessage';
 import Login from './components/login/Login';
 import useAuthenticate from './hooks/useAuthenticate';
 import { VerifyingUser } from './components/layouts/VerifyingUser';
+import { REFRESH_TOKEN_INTERVAL } from './app/constants';
 
 const App = () => {
-	const { authenticated } = useAuthenticate();
+	const { authenticated, refreshToken } = useAuthenticate();
+
+	useEffect(() => {
+		const verifyToken = setInterval(() => {
+			if (authenticated) refreshToken();
+		}, REFRESH_TOKEN_INTERVAL);
+		return () => clearInterval(verifyToken);
+	}, [authenticated, refreshToken]);
 
 	const router = createBrowserRouter([
 		{

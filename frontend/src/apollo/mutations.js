@@ -11,7 +11,7 @@ export const MUTATION_LOGIN = gql`
 	}
 `;
 
-export const MUTATION_SINGUP = gql`
+export const MUTATION_SING_UP = gql`
 	mutation ($input: SignUpInput!) {
 		signupUser(input: $input) {
 			status
