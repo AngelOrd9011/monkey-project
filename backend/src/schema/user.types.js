@@ -1,6 +1,8 @@
 import { gql } from 'apollo-server-express';
 
 const userTypeDefs = gql`
+	############################## Queries ##############################
+
 	extend type Query {
 		# Auth
 		refreshAccessToken: TokenResponse!
@@ -10,6 +12,8 @@ const userTypeDefs = gql`
 		getMe: UserResponse!
 	}
 
+	############################## Mutations ##############################
+
 	extend type Mutation {
 		# Auth
 		loginUser(input: LoginInput!): TokenResponse!
@@ -18,6 +22,8 @@ const userTypeDefs = gql`
 		#User
 		updateUser(email: String!, input: UserInput!): UserResponse!
 	}
+
+	############################## Inputs ##############################
 
 	input SignUpInput {
 		name: String!
@@ -37,6 +43,8 @@ const userTypeDefs = gql`
 		email: String!
 		password: String!
 	}
+
+	############################## Types ##############################
 
 	type TokenResponse {
 		status: String!

@@ -72,7 +72,7 @@ services:
       JWT_ACCESS_PUBLIC_KEY: ${JWT_ACCESS_PUBLIC_KEY} # your_public_key_base64_encoded
       SMTP_USER: ${SMTP_USER} # your_gmail_account@gmail.com
       SMTP_PASSWORD: ${SMTP_PASSWORD} # your_app_password
-      FRONTEND_URL: http://localhost
+      FRONTEND_URL: ${FRONTEND_URL}
     ports:
       - 4000:5000
 
@@ -80,8 +80,8 @@ services:
     build:
       context: frontend/
       args:
-        GRAPHQL_URI: http://localhost:4000/v1/api
-        MINIO_URI: http://localhost:9000/
+        GRAPHQL_URI: ${GRAPHQL_URI}
+        MINIO_URI: ${MINIO_URI}
         MAPS_API_KEY: ${MAPS_API_KEY} #your_google_maps_api_key
     container_name: frontend
     depends_on:

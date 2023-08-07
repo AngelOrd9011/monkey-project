@@ -1,7 +1,22 @@
 import { gql } from 'apollo-server-express';
 
 const productsTypeDefs = gql`
-	# Types
+	############################## Queries ##############################
+	extend type Query {
+		getAllProducts: [Product]
+		getProductsByCategory(category: String!): [Product]
+		getProduct(id: ID!): Product
+		getNewProducts(newProducts: Boolean!): [Product]
+	}
+
+	############################## Mutations ##############################
+	extend type Mutation {
+		addProduct(product: ProductInput): Product
+		deleteProduct(id: ID): String
+		updateProduct(id: ID, product: ProductInput): Product
+	}
+
+	############################## Types ##############################
 	type Product {
 		id: ID
 		name: String
@@ -25,7 +40,7 @@ const productsTypeDefs = gql`
 		size: String
 	}
 
-	# Inputs
+	############################## Inputs ##############################
 	input ProductInput {
 		name: String
 		description: String
@@ -44,21 +59,6 @@ const productsTypeDefs = gql`
 		stock: Int
 		color: String
 		size: String
-	}
-
-	# Queries
-	extend type Query {
-		getAllProducts: [Product]
-		getProductsByCategory(category: String!): [Product]
-		getProduct(id: ID!): Product
-		getNewProducts(newProducts: Boolean!): [Product]
-	}
-
-	# Mutations
-	extend type Mutation {
-		addProduct(product: ProductInput): Product
-		deleteProduct(id: ID): String
-		updateProduct(id: ID, product: ProductInput): Product
 	}
 `;
 

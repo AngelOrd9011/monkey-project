@@ -5,10 +5,12 @@ import { ProfilePicture } from '../components/profile/ProfilePicture';
 import { useMutation } from '@apollo/client';
 import { MUTATION_UPDATE_USER } from '../apollo/mutations';
 import { PAGES } from '../app/constants';
+import useAuthenticate from '../hooks/useAuthenticate';
 
 const Profile = ({ setPage, showToast }) => {
 	const fileUploadRef = useRef(null);
-	const { profile, refetch, token } = useProfile();
+	const { profile, refetch } = useProfile();
+	const { headers } = useAuthenticate();
 	const [input, setInput] = useState({ ...profile });
 	const [update] = useMutation(MUTATION_UPDATE_USER);
 	const [photo, setPhoto] = useState(null);
@@ -30,11 +32,7 @@ const Profile = ({ setPage, showToast }) => {
 	const saveUserChanges = async () => {
 		update({
 			variables: { email: input.email, input: input },
-			context: {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			},
+			context: { ...headers },
 		})
 			.then(() => {
 				refetch();
@@ -53,7 +51,7 @@ const Profile = ({ setPage, showToast }) => {
 		<div className="page-content">
 			<h1>Mi perfil</h1>
 			<section className="grid">
-				<aside className="col-12 md:col-3">
+				<aside className="col-12 md:col-4 lg:col-3">
 					<ProfilePicture
 						input={input}
 						setInput={setInput}
@@ -63,7 +61,7 @@ const Profile = ({ setPage, showToast }) => {
 						cancelUpload={cancelUpload}
 					/>
 				</aside>
-				<div className="col-12 md:col-9" style={{ padding: '1rem' }}>
+				<div className="col-12 md:col-8 lg:col-9" style={{ padding: '1rem' }}>
 					<div className="personal-data-container">
 						<Button label="Guardar" className="p-button-rounded" onClick={() => saveUserChanges()} disabled={disabled} />
 					</div>

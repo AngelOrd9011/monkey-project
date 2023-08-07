@@ -25,7 +25,7 @@ const useAuthenticate = () => {
 		let _authenticated = false;
 		if (logged_in) _authenticated = true;
 		return _authenticated;
-	}, []);
+	}, [logged_in]);
 
 	const refreshToken = () => {
 		getToken();

@@ -7,10 +7,10 @@ import { Loading } from '../components/layouts/Loading';
 import { ErrorMessage } from '../components/layouts/ErrorMessage';
 import { Tag } from 'primereact/tag';
 import logo from '../assets/images/logo-orange.png';
-import useProfile from '../hooks/useProfile';
 import { ProductPanel } from '../components/stock/ProductPanel';
+import useAuthenticate from '../hooks/useAuthenticate';
 const Stock = () => {
-	const { headers } = useProfile();
+	const { headers } = useAuthenticate();
 	const { data, loading, error } = useQuery(QUERY_GET_ALL_PRODUCTS, { context: { ...headers } });
 	const [expandedRows, setExpandedRows] = useState(null);
 
@@ -29,7 +29,6 @@ const Stock = () => {
 				count += item.stock;
 			});
 		}
-		console.log(count);
 		return <Tag value={count + ' UNIDADES'} severity={getProductSeverity(count)} />;
 	};
 

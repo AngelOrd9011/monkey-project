@@ -79,7 +79,10 @@ const Header = ({ page, setPage, showToast }) => {
 		{
 			label: 'Ir a la tienda',
 			icon: 'pi pi-arrow-right-arrow-left',
-			command: () => navigate('/'),
+			command: () => {
+				setPage(PAGES.home);
+				navigate('/');
+			},
 		},
 	];
 
