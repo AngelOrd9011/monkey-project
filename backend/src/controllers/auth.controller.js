@@ -5,13 +5,16 @@ import redisClient from '../config/database/connectRedis.js';
 import { signJwt, verifyJwt } from '../utils/jwt.js';
 import errorHandler from './error.controller.js';
 import { checkSession } from '../middleware/authUser.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const accessTokenExpireIn = 20;
 const refreshTokenExpireIn = 60;
 
 const cookieOptions = {
 	httpOnly: false,
-	// domain: 'localhost',
+	domain: process.env.DOMAIN || 'localhost',
 	sameSite: 'none',
 	secure: true,
 };

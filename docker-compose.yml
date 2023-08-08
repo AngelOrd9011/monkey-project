@@ -73,6 +73,7 @@ services:
       SMTP_USER: ${SMTP_USER} # your_gmail_account@gmail.com
       SMTP_PASSWORD: ${SMTP_PASSWORD} # your_app_password
       FRONTEND_URL: ${FRONTEND_URL}
+      DOMAIN: ${DOMAIN}
     ports:
       - 4000:5000
 
