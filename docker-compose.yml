@@ -45,7 +45,7 @@ services:
       - minio
     entrypoint: >
       /bin/sh -c "
-      /usr/bin/mc config host add monkeystorage http://minio:9000 admin password;
+      /usr/bin/mc config host add monkeystorage http://minio:9000 ${MINIO_ADMIN} ${MINIO_PASSWORD};
       /usr/bin/mc mb monkeystorage/monkey/products;
       /usr/bin/mc mb monkeystorage/monkey/users;
       /usr/bin/mc mb monkeystorage/documents;
