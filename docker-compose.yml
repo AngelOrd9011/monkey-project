@@ -6,8 +6,8 @@ services:
     volumes:
       - ./mongo/data:/data/db
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_ADMIN}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
       - MONGO_INITDB_DATABASE=monkey
     ports:
       - '27031:27017'
@@ -31,8 +31,8 @@ services:
       - ./storage/.minio/data:/export
       - ./storage/.minio/config:/root/.minio
     environment:
-      - MINIO_ROOT_USER=admin
-      - MINIO_ROOT_PASSWORD=password
+      - MINIO_ROOT_USER=${MINIO_ADMIN}
+      - MINIO_ROOT_PASSWORD=${MINIO_PASSWORD}
       - MINIO_CONSOLE_PORT_NUMBER=9002
     command: server /export --console-address ":9002"
 
@@ -64,8 +64,8 @@ services:
     environment:
       MONGODB_URI: mongodb://monkeyadmin:password@mongodb:27017/monkey
       MINIO_URI: http://minio:9000
-      MINIO_USER: admin
-      MINIO_PASSWORD: password
+      MINIO_ADMIN: ${MINIO_ADMIN}
+      MINIO_PASSWORD: ${MINIO_PASSWORD}
       REDIS_URL: redis://redis:6379
       NODE_ENV: production
       JWT_ACCESS_PRIVATE_KEY: ${JWT_ACCESS_PRIVATE_KEY} # your_private_key_base64_encoded

@@ -7,3 +7,5 @@ node_modules/
 **/.minio/
 
 compose.yaml
+
+.prod/
