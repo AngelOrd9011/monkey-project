@@ -3,6 +3,14 @@ import errorHandler from '../controllers/error.controller.js';
 import User from '../models/User.js';
 import redisClient from '../config/database/connectRedis.js';
 import { verifyJwt } from '../utils/jwt.js';
+import { ADMIN_ROLE } from '../utils/constants.js';
+
+export const checkAdminRole = async (role) => {
+	if (role !== ADMIN_ROLE) {
+		let error = { name: 'InvalidRole' };
+		errorHandler(error);
+	}
+};
 
 export const getAccessToken = (req) => {
 	// Get the access token

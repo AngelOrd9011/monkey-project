@@ -1,7 +1,7 @@
 import errorHandler from './error.controller.js';
 import checkIsLoggedIn from '../middleware/checkIsLoggedIn.js';
 import Product from '../models/Product.js';
-import { ADMIN_ROLE } from '../utils/constants.js';
+import { checkAdminRole } from '../middleware/authUser.js';
 
 const getProducts = async (_, { id, category, newProducts }, { req, authUser }) => {
 	try {
@@ -24,7 +24,8 @@ const getProducts = async (_, { id, category, newProducts }, { req, authUser }) 
 				.limit(9);
 			return products;
 		}
-		await checkIsLoggedIn(req, authUser);
+		const role = await checkIsLoggedIn(req, authUser);
+		await checkAdminRole(role);
 		products = await Product.find().sort({ createdAt: 'desc' });
 		return products;
 	} catch (error) {
@@ -35,15 +36,11 @@ const getProducts = async (_, { id, category, newProducts }, { req, authUser }) 
 const addProduct = async (_, { product }, { req, authUser }) => {
 	try {
 		const role = await checkIsLoggedIn(req, authUser);
-		if (role === ADMIN_ROLE) {
-			const { name, description, category, price, images } = product;
-			const newProduct = new Product({ name, description, category, price, images });
-			await newProduct.save();
-			return newProduct;
-		} else {
-			let error = { name: 'InvalidRole' };
-			errorHandler(error);
-		}
+		await checkAdminRole(role);
+		const { name, description, category, price, images } = product;
+		const newProduct = new Product({ name, description, category, price, images });
+		await newProduct.save();
+		return newProduct;
 	} catch (error) {
 		errorHandler(error);
 	}

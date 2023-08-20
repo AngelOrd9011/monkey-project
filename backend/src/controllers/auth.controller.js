@@ -14,7 +14,7 @@ const refreshTokenExpireIn = 60;
 
 const cookieOptions = {
 	httpOnly: false,
-	domain: process.env.DOMAIN || 'localhost',
+	// domain: process.env.DOMAIN || 'localhost',
 	sameSite: 'none',
 	secure: true,
 };
