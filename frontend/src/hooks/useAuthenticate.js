@@ -6,7 +6,6 @@ import { QUERY_LOGOUT, QUERY_REFRESH_TOKEN } from '../apollo/queries';
 
 const useAuthenticate = () => {
 	const { token, logged_in } = useSessionCookies();
-
 	const headers = useMemo(() => {
 		let _headers = { headers: { Authorization: `Bearer ${token}` } };
 		return _headers;
@@ -14,12 +13,8 @@ const useAuthenticate = () => {
 
 	const [auth] = useMutation(MUTATION_LOGIN);
 	const [sing] = useMutation(MUTATION_SING_UP);
-	const [out] = useLazyQuery(QUERY_LOGOUT, {
-		context: { ...headers },
-	});
-	const [getToken] = useLazyQuery(QUERY_REFRESH_TOKEN, {
-		context: { ...headers },
-	});
+	const [out] = useLazyQuery(QUERY_LOGOUT);
+	const [getToken] = useLazyQuery(QUERY_REFRESH_TOKEN);
 
 	const authenticated = useMemo(() => {
 		let _authenticated = false;
@@ -28,12 +23,15 @@ const useAuthenticate = () => {
 	}, [logged_in]);
 
 	const refreshToken = () => {
-		getToken();
+		getToken({
+			context: { ...headers },
+		});
 	};
 
 	const login = (email, password, showToast) => {
 		auth({ variables: { input: { email, password } } })
 			.then(({ data }) => {
+				console.log(data);
 				window.location.reload();
 			})
 			.catch((e) => {
@@ -43,7 +41,9 @@ const useAuthenticate = () => {
 	};
 
 	const logout = () => {
-		out()
+		out({
+			context: { ...headers },
+		})
 			.then(() => {
 				window.location.reload();
 			})

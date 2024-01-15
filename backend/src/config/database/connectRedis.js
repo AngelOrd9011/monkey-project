@@ -1,9 +1,11 @@
 import { createClient } from 'redis';
 
 const redisUrl = process.env.REDIS_URL;
+const pwd = process.env.REDIS_PASSWORD;
 
 const redisClient = createClient({
 	url: redisUrl,
+	password: pwd,
 });
 
 const connectRedis = async () => {
@@ -11,7 +13,7 @@ const connectRedis = async () => {
 		await redisClient.connect();
 	} catch (error) {
 		console.error(error.message);
-		setInterval(5000, connectRedis);
+		setInterval(9000, connectRedis);
 	}
 };
 

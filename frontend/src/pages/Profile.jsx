@@ -48,10 +48,10 @@ const Profile = ({ setPage, showToast }) => {
 	};
 
 	return (
-		<div className="page-content">
+		<div className='page-content'>
 			<h1>Mi perfil</h1>
-			<section className="grid">
-				<aside className="col-12 md:col-4 lg:col-3">
+			<section className='grid'>
+				<aside className='col-12 md:col-4 lg:col-3'>
 					<ProfilePicture
 						input={input}
 						setInput={setInput}
@@ -61,9 +61,9 @@ const Profile = ({ setPage, showToast }) => {
 						cancelUpload={cancelUpload}
 					/>
 				</aside>
-				<div className="col-12 md:col-8 lg:col-9" style={{ padding: '1rem' }}>
-					<div className="personal-data-container">
-						<Button label="Guardar" className="p-button-rounded" onClick={() => saveUserChanges()} disabled={disabled} />
+				<div className='col-12 md:col-8 lg:col-9' style={{ padding: '1rem' }}>
+					<div className='personal-data-container'>
+						<Button label='Guardar' className='p-button-rounded' onClick={() => saveUserChanges()} disabled={disabled} />
 					</div>
 				</div>
 			</section>

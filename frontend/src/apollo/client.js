@@ -3,8 +3,6 @@ import { createUploadLink } from 'apollo-upload-client';
 
 const connectToDevTools = process.env.NODE_ENV !== 'production';
 
-const credentials = process.env.NODE_ENV !== 'production' ? 'include' : 'same-origin';
-
 const client = new ApolloClient({
 	cache: new InMemoryCache(),
 	link: createUploadLink({
@@ -12,7 +10,7 @@ const client = new ApolloClient({
 		fetch,
 		fetchOptions: {
 			withCredentials: true,
-			credentials,
+			credentials: 'include',
 		},
 		connectToDevTools,
 	}),

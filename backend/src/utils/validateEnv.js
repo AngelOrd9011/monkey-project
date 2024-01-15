@@ -7,6 +7,7 @@ const validateEnv = () => {
 
 		MONGODB_URI: str(),
 		REDIS_URL: str(),
+		REDIS_PASSWORD: str(),
 
 		JWT_ACCESS_PRIVATE_KEY: str(),
 		JWT_ACCESS_PUBLIC_KEY: str(),

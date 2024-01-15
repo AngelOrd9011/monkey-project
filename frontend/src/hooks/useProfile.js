@@ -11,9 +11,7 @@ const useProfile = () => {
 	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const { headers } = useAuthenticate();
-	const [loadProfile, { refetch: profileRefetch }] = useLazyQuery(QUERY_USER_PROFILE, {
-		context: { ...headers },
-	});
+	const [loadProfile, { refetch: profileRefetch }] = useLazyQuery(QUERY_USER_PROFILE);
 
 	const refetch = async () => {
 		await profileRefetch()
@@ -28,7 +26,9 @@ const useProfile = () => {
 	};
 
 	useEffect(() => {
-		loadProfile()
+		loadProfile({
+			context: { ...headers },
+		})
 			.then(({ data, loading }) => {
 				if (!data?.getMe.user) {
 					setError(data.getMe.status);

@@ -7,7 +7,7 @@ import useAuthenticate from '../../hooks/useAuthenticate';
 import useProfile from '../../hooks/useProfile';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { CATEGORIES, PAGES } from '../../app/constants';
+import { ADMIN_ROLE, CATEGORIES, PAGES } from '../../app/constants';
 
 const Header = ({ page, setPage, showToast }) => {
 	const [show, setShow] = useState(false);
@@ -58,6 +58,15 @@ const Header = ({ page, setPage, showToast }) => {
 			icon: 'pi pi-shopping-cart',
 			command: () => setPage(PAGES.cart),
 		},
+		{
+			label: 'Administrar sitio',
+			icon: 'pi pi-arrow-right-arrow-left',
+			visible: authenticated && profile.role === ADMIN_ROLE,
+			command: () => {
+				setPage(PAGES.home);
+				navigate('/admin-console');
+			},
+		},
 	];
 
 	const adminItems = [
@@ -88,9 +97,9 @@ const Header = ({ page, setPage, showToast }) => {
 
 	const nameTemplate = () => {
 		return (
-			<div className="monkey-avatar">
+			<div className='monkey-avatar'>
 				<div style={{ display: 'inline-flex' }}>
-					{profile.photo && <Avatar image={profile?.photo} shape="circle" alt="avatar" />}
+					{profile.photo && <Avatar image={profile?.photo} shape='circle' alt='avatar' />}
 					<span style={{ margin: '0.5rem 0 0.5rem 0.5rem' }}>{profile.name}</span>
 				</div>
 			</div>
@@ -118,15 +127,15 @@ const Header = ({ page, setPage, showToast }) => {
 		return menu;
 	};
 
-	const img = <img src={logo} className="app-logo" alt="logo" />;
+	const img = <img src={logo} className='app-logo' alt='logo' />;
 
 	return (
 		<>
 			<header>
-				<div className="app-header">
-					<Menubar className="menu-header" model={menu()} end={img} />
+				<div className='app-header'>
+					<Menubar className='menu-header' model={menu()} end={img} />
 				</div>
-				{(page === PAGES.home || page === PAGES.contact) && <div className="image-cover"></div>}
+				{(page === PAGES.home || page === PAGES.contact) && <div className='image-cover'></div>}
 			</header>
 			<LoginDialog show={show} onHide={onHide} showToast={showToast} register={register} setRegister={setRegister} />
 		</>

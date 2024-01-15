@@ -22,6 +22,7 @@ const init = async () => {
 	const apolloServer = new ApolloServer({
 		typeDefs,
 		resolvers,
+		introspection: process.env.NODE_ENV !== 'production',
 		context: async ({ req, res }) => ({ req, res, authUser }),
 		uploads: false,
 		persistedQueries: false,
@@ -43,7 +44,7 @@ const init = async () => {
 		res.send('GraphQL API is alive!');
 	});
 
-	app.use((_req, res, next) => {
+	app.use((_req, res) => {
 		res.status(404).send('not found');
 	});
 

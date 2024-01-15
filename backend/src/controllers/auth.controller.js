@@ -14,9 +14,8 @@ const refreshTokenExpireIn = 60;
 
 const cookieOptions = {
 	httpOnly: false,
-	// domain: process.env.DOMAIN || 'localhost',
 	sameSite: 'none',
-	secure: true,
+	secure: false,
 };
 
 const accessTokenCookieOptions = {
@@ -30,8 +29,6 @@ const refreshTokenCookieOptions = {
 	maxAge: refreshTokenExpireIn * 60 * 1000,
 	expires: new Date(Date.now() + refreshTokenExpireIn * 60 * 1000),
 };
-
-if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
 
 const signup = async (_, { input: { name, email, password, passwordConfirm } }, { req }) => {
 	try {
@@ -136,7 +133,7 @@ const refreshAccessToken = async (_, args, { req, res }) => {
 
 		// Send access token cookie
 		res.cookie('access_token', access_token, accessTokenCookieOptions);
-		res.cookie('logged_in', 'true', {
+		res.cookie('logged_in', true, {
 			...accessTokenCookieOptions,
 			httpOnly: false,
 		});
