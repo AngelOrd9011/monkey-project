@@ -100,7 +100,7 @@ const Header = ({ page, setPage, showToast }) => {
 			<div className='monkey-avatar'>
 				<div style={{ display: 'inline-flex' }}>
 					{profile.photo && <Avatar image={profile?.photo} shape='circle' alt='avatar' />}
-					<span style={{ margin: '0.5rem 0 0.5rem 0.5rem' }}>{profile.name}</span>
+					<span style={{ margin: '0.5rem 0 0.5rem 0.5rem' }}>{profile.username}</span>
 				</div>
 			</div>
 		);
@@ -127,7 +127,7 @@ const Header = ({ page, setPage, showToast }) => {
 		return menu;
 	};
 
-	const img = <img src={logo} className='app-logo' alt='logo' />;
+	const img = <img src={logo} className='app-logo' alt='logo' onClick={() => setPage(PAGES.home)} />;
 
 	return (
 		<>

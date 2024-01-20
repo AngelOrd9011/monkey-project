@@ -50,8 +50,8 @@ const useAuthenticate = () => {
 			.catch((e) => console.log(e));
 	};
 
-	const singUp = (name, email, password, passwordConfirm, showToast) => {
-		sing({ variables: { input: { name, email, password, passwordConfirm } } })
+	const singUp = (username, email, password, passwordConfirm, showToast) => {
+		sing({ variables: { input: { username, email, password, passwordConfirm } } })
 			.then(({ data }) => {
 				if (data.signupUser.status === 'success') {
 					login(email, password, showToast);

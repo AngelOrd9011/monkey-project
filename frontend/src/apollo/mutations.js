@@ -24,7 +24,7 @@ export const MUTATION_UPDATE_USER = gql`
 		updateUser(email: $email, input: $input) {
 			status
 			user {
-				name
+				username
 				email
 				photo
 				role

@@ -40,7 +40,7 @@ const useProfile = () => {
 			.catch((e) => {
 				setError(e);
 			});
-	}, [loadProfile, dispatch]);
+	}, [loadProfile, dispatch, headers]);
 
 	return { profile, loading, error, refetch };
 };

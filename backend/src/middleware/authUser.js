@@ -34,7 +34,7 @@ export const checkSession = async (access_token) => {
 	const session = await redisClient.get(decoded.user);
 
 	if (!session) {
-		throw new ForbiddenError('Session has expired');
+		throw new ForbiddenError('La sesión ha expirado');
 	}
 
 	return session;
@@ -48,7 +48,7 @@ const authUser = async (req) => {
 		// Check if user exist
 		const user = await User.findById(JSON.parse(session).id).select('+verified');
 		if (!user) {
-			throw new ForbiddenError('The user belonging to this token no logger exist');
+			throw new ForbiddenError('No existe un inicio de sesión activo para el usuario con este token');
 		}
 		return user;
 	} catch (error) {

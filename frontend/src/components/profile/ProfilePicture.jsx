@@ -9,12 +9,12 @@ export const ProfilePicture = ({ input, setInput, photo, setPhoto, fileUploadRef
 		let filename = uuidv4() + '.jpg';
 		let blob = await fetch(event.files[0].objectURL).then((r) => r.blob());
 		let file = new File([blob], filename);
-		let _photo = process.env.REACT_APP_MINIO_URI + 'monkey/users/' + filename;
+		let _photo = process.env.REACT_APP_MINIO_URI + `monkey/users/${input.username}/${filename}`;
 		let _input = { ...input, upload: { file: null, path: null } };
 		delete _input.role;
 		_input.photo = _photo;
 		_input.upload.file = file;
-		_input.upload.path = 'users';
+		_input.upload.path = `users/${input.username}`;
 		setInput(_input);
 	};
 
@@ -26,27 +26,27 @@ export const ProfilePicture = ({ input, setInput, photo, setPhoto, fileUploadRef
 
 	return (
 		<>
-			<div className="grid">
-				<div className="col-12 image-selector">
-					<div className="flex align-items-center flex-column profile-picture">
-						<Image src={photo || input.photo} alt="Image" imageClassName="profile-picture" preview />
+			<div className='grid'>
+				<div className='col-12 image-selector'>
+					<div className='flex align-items-center flex-column profile-picture'>
+						<Image src={photo || input.photo} alt='Image' imageClassName='profile-picture' preview />
 					</div>
-					<div className="col-12 image-selector-btn flex align-items-center flex-column">
+					<div className='col-12 image-selector-btn flex align-items-center flex-column'>
 						{!photo && (
 							<FileUpload
 								ref={fileUploadRef}
-								mode="basic"
-								accept=".jpg"
-								name="profile"
+								mode='basic'
+								accept='.jpg'
+								name='profile'
 								chooseOptions={chooseOptions}
-								chooseLabel="Seleccionar foto de perfil"
+								chooseLabel='Seleccionar foto de perfil'
 								customUpload
 								uploadHandler={myUploader}
 								multiple={false}
 								auto
 							/>
 						)}
-						{photo && <Button icon="pi pi-times" label="Cancelar" className="p-button-rounded p-button-outlined" onClick={cancelUpload} />}
+						{photo && <Button icon='pi pi-times' label='Cancelar' className='p-button-rounded p-button-outlined' onClick={cancelUpload} />}
 					</div>
 				</div>
 			</div>

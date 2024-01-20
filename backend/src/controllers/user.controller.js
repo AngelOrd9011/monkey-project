@@ -7,6 +7,7 @@ import { getAccessToken } from '../middleware/authUser.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
+
 const getMe = async (_, args, { req, authUser }) => {
 	try {
 		await checkIsLoggedIn(req, authUser);
@@ -38,7 +39,6 @@ const getMe = async (_, args, { req, authUser }) => {
 const fileUpload = async ({ file, path }) => {
 	const { filename, createReadStream } = await file;
 	const stream = createReadStream();
-
 	let result;
 
 	try {
@@ -56,7 +56,7 @@ const fileUpload = async ({ file, path }) => {
 const updateUser = async (_, { email, input }, { req, authUser }) => {
 	try {
 		await checkIsLoggedIn(req, authUser);
-		const { name, photo } = input;
+		const { username, photo } = input;
 
 		let uploaded;
 		if (input.upload) await fileUpload(input.upload);
@@ -65,7 +65,7 @@ const updateUser = async (_, { email, input }, { req, authUser }) => {
 			{ email },
 			{
 				$set: {
-					name,
+					username,
 					photo,
 				},
 			},

@@ -7,7 +7,7 @@ export const QUERY_USER_PROFILE = gql`
 		getMe {
 			status
 			user {
-				name
+				username
 				email
 				photo
 				role

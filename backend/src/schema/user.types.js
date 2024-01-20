@@ -26,14 +26,14 @@ const userTypeDefs = gql`
 	############################## Inputs ##############################
 
 	input SignUpInput {
-		name: String!
+		username: String!
 		email: String!
 		password: String!
 		passwordConfirm: String!
 	}
 
 	input UserInput {
-		name: String
+		username: String
 		email: String
 		photo: String
 		upload: UploadInput
@@ -59,7 +59,7 @@ const userTypeDefs = gql`
 
 	type UserData {
 		id: ID!
-		name: String!
+		username: String!
 		email: String!
 		photo: String!
 		role: String!

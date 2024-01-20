@@ -16,7 +16,7 @@ const Profile = ({ setPage, showToast }) => {
 	const [photo, setPhoto] = useState(null);
 
 	useEffect(() => {
-		if (!profile.name) setPage(PAGES.home);
+		if (!profile.username) setPage(PAGES.home);
 	}, [setPage, profile]);
 
 	const disabled = useMemo(() => {

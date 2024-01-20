@@ -9,8 +9,8 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const accessTokenExpireIn = 20;
-const refreshTokenExpireIn = 60;
+const accessTokenExpireIn = 16;
+const refreshTokenExpireIn = 20;
 
 const cookieOptions = {
 	httpOnly: false,
@@ -30,10 +30,10 @@ const refreshTokenCookieOptions = {
 	expires: new Date(Date.now() + refreshTokenExpireIn * 60 * 1000),
 };
 
-const signup = async (_, { input: { name, email, password, passwordConfirm } }, { req }) => {
+const signup = async (_, { input: { username, email, password, passwordConfirm } }, { req }) => {
 	try {
 		const user = await User.create({
-			name,
+			username,
 			email,
 			password,
 			passwordConfirm,
@@ -50,12 +50,13 @@ const signup = async (_, { input: { name, email, password, passwordConfirm } }, 
 	}
 };
 
-async function signTokens(user) {
+async function signTokens(user, isLogged) {
 	// Create a Session
-	await redisClient.set(user.id, JSON.stringify(user), {
-		EX: 60 * 60,
-	});
-
+	if (!isLogged) {
+		await redisClient.set(user.id, JSON.stringify(user), {
+			EX: 60 * 60,
+		});
+	}
 	// Create access token
 	const access_token = signJwt({ user: user.id }, process.env.JWT_ACCESS_PRIVATE_KEY, {
 		expiresIn: `${accessTokenExpireIn}m`,
@@ -81,9 +82,9 @@ const login = async (_, { input: { email, password } }, { req, res }) => {
 		user.password = undefined;
 
 		// Create a session and tokens
-		const { access_token, refresh_token } = await signTokens(user);
+		const { access_token, refresh_token } = await signTokens(user, false);
 
-		// Add refreshToken to cookie
+		// Send access token cookie
 		res.cookie('refresh_token', refresh_token, refreshTokenCookieOptions);
 		res.cookie('access_token', access_token, accessTokenCookieOptions);
 		res.cookie('logged_in', true, {
@@ -126,12 +127,11 @@ const refreshAccessToken = async (_, args, { req, res }) => {
 			throw new ForbiddenError('Could not refresh access token');
 		}
 
-		// Sign new access token
-		const access_token = signJwt({ user: user._id }, process.env.JWT_ACCESS_PRIVATE_KEY, {
-			expiresIn: `${accessTokenExpireIn}m`,
-		});
+		// Sign new access tokens
+		const { access_token, refresh_token: new_refresh_token } = await signTokens(user, true);
 
 		// Send access token cookie
+		res.cookie('refresh_token', new_refresh_token, refreshTokenCookieOptions);
 		res.cookie('access_token', access_token, accessTokenCookieOptions);
 		res.cookie('logged_in', true, {
 			...accessTokenCookieOptions,

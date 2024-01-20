@@ -9,9 +9,10 @@ dotenv.config();
 
 const userSchema = new Schema(
 	{
-		name: {
+		username: {
 			type: String,
 			required: [true, 'El nombre de usuario es requerido'],
+			unique: true,
 		},
 		email: {
 			type: String,

@@ -75,7 +75,7 @@ const deleteProduct = async (_, { id }, { req, authUser }) => {
 	try {
 		await checkIsLoggedIn(req, authUser);
 		await Product.findByIdAndDelete(id);
-		return 'Product Deleted';
+		return 'El producto se ha eliminado.';
 	} catch (error) {
 		errorHandler(error);
 	}

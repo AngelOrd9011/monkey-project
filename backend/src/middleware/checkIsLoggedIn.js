@@ -7,7 +7,7 @@ const checkIsLoggedIn = async (req, getAuthUser) => {
 		const authUser = await getAuthUser(req);
 
 		if (!authUser) {
-			throw new AuthenticationError('You are not logged in');
+			throw new AuthenticationError('No has iniciado sesión');
 		}
 
 		return authUser.role;

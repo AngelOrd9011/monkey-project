@@ -336,7 +336,7 @@ db.products.insertMany([
 db.users.drop();
 db.users.insertMany([
 	{
-		name: 'Administrator',
+		username: 'Administrator',
 		email: 'admin@example.com',
 		password: '$2a$12$MvG9OVguxwW3h9xLU/RqtO2hhAtPvtETEOAgOk1VtHTp1XQaryOXu', // test1234
 		photo: 'http://localhost:9000/monkey/users/default.png',
@@ -345,7 +345,7 @@ db.users.insertMany([
 		createdAt: new Date(),
 	},
 	{
-		name: 'SingleUser',
+		username: 'SingleUser',
 		email: 'user@example.com',
 		password: '$2a$12$MvG9OVguxwW3h9xLU/RqtO2hhAtPvtETEOAgOk1VtHTp1XQaryOXu', // test1234
 		photo: 'http://localhost:9000/monkey/users/default.png',
