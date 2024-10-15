@@ -14,7 +14,7 @@ const refreshTokenExpireIn = 20;
 
 const cookieOptions = {
 	httpOnly: false,
-	sameSite: 'none',
+	domain: '.' + process.env.DOMAIN,
 	secure: false,
 };
 
@@ -95,34 +95,34 @@ const login = async (_, { input: { email, password } }, { req, res }) => {
 		return {
 			status: 'success',
 			access_token,
+			refresh_token,
+			logged_in: true,
 		};
 	} catch (error) {
 		errorHandler(error);
 	}
 };
 
-const refreshAccessToken = async (_, args, { req, res }) => {
+const refreshAccessToken = async (_, _args, { req, res }) => {
 	try {
 		// Get the refresh token
-		let refresh_token = req.headers.cookie.split('=')[1].split(';')[0];
+		let cookies = req.headers.cookie.split(';');
+		let refresh_token = cookies.find((item) => item.includes('refresh_token')).split('=')[1];
 
 		// Validate the RefreshToken
 		const decoded = verifyJwt(refresh_token, process.env.JWT_ACCESS_PUBLIC_KEY);
-
 		if (!decoded) {
 			throw new ForbiddenError('Could not refresh access token');
 		}
 
 		// Check if user's session is valid
 		const session = await redisClient.get(decoded.user);
-
 		if (!session) {
 			throw new ForbiddenError('User session has expired');
 		}
 
 		// Check if user exist and is verified
 		const user = await User.findById(JSON.parse(session)._id).select('+verified');
-
 		if (!user || !user.verified) {
 			throw new ForbiddenError('Could not refresh access token');
 		}

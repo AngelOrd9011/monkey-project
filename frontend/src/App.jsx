@@ -14,6 +14,7 @@ const App = () => {
 
 	useEffect(() => {
 		const verifyToken = setInterval(() => {
+			console.log(authenticated);
 			if (authenticated) refreshToken();
 		}, REFRESH_TOKEN_INTERVAL);
 		return () => clearInterval(verifyToken);
@@ -29,7 +30,7 @@ const App = () => {
 			element: <ShopWrapper />,
 		},
 		{
-			path: '/:token',
+			path: '/verify/:token',
 			element: <VerifyingUser />,
 		},
 		{

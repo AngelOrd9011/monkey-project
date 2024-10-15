@@ -18,7 +18,7 @@ const getMe = async (_, args, { req, authUser }) => {
 			let access_token = getAccessToken(req);
 			let message = `<h2>¡Bienvenido!</h2>
 			<p>Para verificar tu usuario, ingresa al siguiente enlace:</p>
-			<a href='${process.env.FRONTEND_URL}/${access_token}' target='_blank'>Verifica tu usuario AQUÍ</a>`;
+			<a href='${process.env.FRONTEND_URL}/verify/${access_token}' target='_blank'>Verifica tu usuario AQUÍ</a>`;
 			let subject = 'Verificación de usuario';
 			let mail_address = user.email;
 			mailerController.sender(null, { mail_address, subject, message, contentHTML: true });

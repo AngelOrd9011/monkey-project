@@ -15,7 +15,7 @@ const validateEnv = () => {
 		JWT_ACCESS_PRIVATE_KEY: str(),
 		JWT_ACCESS_PUBLIC_KEY: str(),
 
-		MINIO_URI: str(),
+		MINIO_API: str(),
 		MINIO_ADMIN: str(),
 		MINIO_PASSWORD: str(),
 

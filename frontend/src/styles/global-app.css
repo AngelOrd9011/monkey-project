@@ -183,7 +183,7 @@ h1 {
 .personal-data-container {
 	width: 100%;
 	min-height: 30vh;
-	background-color: rgba(239, 108, 0, 0.8);
+	background-color: #704cb6;
 	border-radius: 15px;
 	padding: 1rem;
 }
@@ -261,4 +261,9 @@ h1 {
 	100% {
 		transform: translateY(0px);
 	}
+}
+
+.user-data-form label {
+	color: #ef6c00 !important;
+	font-weight: bold;
 }

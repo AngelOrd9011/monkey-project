@@ -9,7 +9,7 @@ export const ProfilePicture = ({ input, setInput, photo, setPhoto, fileUploadRef
 		let filename = uuidv4() + '.jpg';
 		let blob = await fetch(event.files[0].objectURL).then((r) => r.blob());
 		let file = new File([blob], filename);
-		let _photo = process.env.REACT_APP_MINIO_URI + `monkey/users/${input.username}/${filename}`;
+		let _photo = process.env.REACT_APP_MINIO_URI + `/users/${input.username}/${filename}`;
 		let _input = { ...input, upload: { file: null, path: null } };
 		delete _input.role;
 		_input.photo = _photo;

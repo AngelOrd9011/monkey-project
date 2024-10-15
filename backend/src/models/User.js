@@ -7,8 +7,23 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+const shoppingCartSchema = new Schema({});
+
 const userSchema = new Schema(
 	{
+		first_name: {
+			type: String,
+			maxlength: 80,
+		},
+		last_name: {
+			type: String,
+			maxlength: 80,
+		},
+		phone: {
+			type: String,
+			unique: [true, 'Este número telefónico ya esta en uso por otro usuario'],
+			maxlength: 10,
+		},
 		username: {
 			type: String,
 			required: [true, 'El nombre de usuario es requerido'],
@@ -39,7 +54,7 @@ const userSchema = new Schema(
 		},
 		photo: {
 			type: String,
-			default: `${process.env.MINIO_URI}/monkey/users/default.png`,
+			default: `${process.env.MINIO_API}monkey/users/default.png`,
 		},
 		role: {
 			type: String,

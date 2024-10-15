@@ -64,7 +64,7 @@ services:
       - redis
     environment:
       MONGODB_URI: mongodb://monkeyadmin:password@mongodb:27017/monkey
-      MINIO_URI: http://minio:9000
+      MINIO_API: ${MINIO_API}
       MINIO_ADMIN: ${MINIO_ADMIN}
       MINIO_PASSWORD: ${MINIO_PASSWORD}
       REDIS_URL: redis://redis:6379

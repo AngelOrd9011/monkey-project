@@ -6,6 +6,7 @@ import { useMutation } from '@apollo/client';
 import { MUTATION_UPDATE_USER } from '../apollo/mutations';
 import { PAGES } from '../app/constants';
 import useAuthenticate from '../hooks/useAuthenticate';
+import { UserData } from '../components/profile/UserData';
 
 const Profile = ({ setPage, showToast }) => {
 	const fileUploadRef = useRef(null);
@@ -63,7 +64,8 @@ const Profile = ({ setPage, showToast }) => {
 				</aside>
 				<div className='col-12 md:col-8 lg:col-9' style={{ padding: '1rem' }}>
 					<div className='personal-data-container'>
-						<Button label='Guardar' className='p-button-rounded' onClick={() => saveUserChanges()} disabled={disabled} />
+						<Button label='Guardar cambios' className='p-button-rounded orange-btn' onClick={() => saveUserChanges()} disabled={disabled} />
+						<UserData input={input} setInput={setInput} />
 					</div>
 				</div>
 			</section>

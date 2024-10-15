@@ -17,7 +17,7 @@ export const getAccessToken = (req) => {
 	let access_token = null;
 	if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
 		access_token = req.headers.authorization.split(' ')[1];
-	} else if (req.cookies.access_token) {
+	} else if (req?.cookies?.access_token) {
 		const { access_token: token } = req.cookies;
 		access_token = token;
 	}
